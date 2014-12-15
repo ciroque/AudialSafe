@@ -97,10 +97,25 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+html, body {
+    background-color: dimgray;
+}
 
+.viewport {
+    background-color: #f5f5f5;
+    border: inset 2px slategray;
+    border-radius: 10px;
+    margin-top: 12px;
+    padding: 4px;
+}
 
+.sectional-padding {
+    padding: 10px;
+}
 
-
+label {
+    font-size: small;
+}
 
 
 
