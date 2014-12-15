@@ -76,57 +76,67 @@
             <!--
                 Sample Rate: The duration in milliseconds between observations of the SPL.
             -->
-            <div class="row">
+            <div class="row setting">
                 <div class="col-lg-3"><label for="sampleRate">Sample Rate (milliseconds)</label></div>
                 <div class="col-lg-8">
                     <input type="range" id="sampleRate" name="sampleRate" placeholder="Sample Rate" min="100" max="60000"/>
                 </div>
-                <div class="col-lg-1">&nbsp;</div>
+                <div class="col-lg-1">
+                    <span id="sampleRateValue">200</span>
+                </div>
             </div>
 
             <!--
                 Primary Threshold: Lower-end SPL level that when observed for Primary Threshold Observation Count triggers the primary indicator.
                 Will also trigger the secondary indicator if observed Secondary Threshold Observation Count times without a reset ocurring.
             -->
-            <div class="row">
+            <div class="row setting">
                 <div class="col-lg-3"><label for="primaryThreshold">Primary Threshold</label></div>
                 <div class="col-lg-8">
                     <input type="range" id="primaryThreshold" name="primaryThreshold" placeholder="Primary Threshold" min="0" max="1000"/>
                 </div>
-                <div class="col-lg-1">&nbsp;</div>
+                <div class="col-lg-1">
+                    <span id="primaryThresholdValue">200</span>
+                </div>
             </div>
 
             <!--
                 Primary Threshold Observation Count: Number of observations of the Primary Threshold that will trigger the primary indicator.
             -->
-            <div class="row">
+            <div class="row setting">
                 <div class="col-lg-3"><label for="primaryThresholdObservationCount">Primary Threshold Observation Count</label></div>
                 <div class="col-lg-8">
                     <input type="range" id="primaryThresholdObservationCount" name="primaryThresholdObservationCount" placeholder="Primary Threshold Observation Count" min="1" max="1000"/>
                 </div>
-                <div class="col-lg-1">&nbsp;</div>
+                <div class="col-lg-1">
+                    <span id="primaryThresholdObservationCountValue">200</span>
+                </div>
             </div>
 
             <!--
                 Secondary Threshold Observation Count: Number of observations of the Primary Threshold that will trigger the primary indicator.
             -->
-            <div class="row">
+            <div class="row setting">
                 <div class="col-lg-3"><label for="secondaryThresholdObservationCount">Secondary Threshold Observation Count</label></div>
                 <div class="col-lg-8">
                     <input type="range" id="secondaryThresholdObservationCount" name="secondaryThresholdObservationCount" placeholder="Secondary Threshold Observation Count" min="1" max="1000"/>
                 </div>
-                <div class="col-lg-1">&nbsp;</div>
+                <div class="col-lg-1">
+                    <span id="secondaryThresholdObservationCountValue">200</span>
+                </div>
             </div>
 
             <!--
                 Secondary Threshold: Automatically triggers the secondary indicator regardless of timing settings.
             -->
-            <div class="row">
+            <div class="row setting">
                 <div class="col-lg-3"><label for="secondaryThreshold">Secondary Threshold</label></div>
                 <div class="col-lg-8">
                     <input type="range" id="secondaryThreshold" name="secondaryThreshold" placeholder="Secondary Threshold" min="1" max="3000"/>
                 </div>
-                <div class="col-lg-1">&nbsp;</div>
+                <div class="col-lg-1">
+                    <span id="secondaryThresholdValue">200</span>
+                </div>
             </div>
         </div>
     </main>
@@ -135,6 +145,7 @@
         <h5>All Rights Reserved.</h5>
     </footer>
 </div>
+
 <script src="js/vendor/jquery-1.10.2.min.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
@@ -144,44 +155,8 @@
 <script src="js/vendor/recorder/recorder.js" type="application/javascript"></script>
 <script src="js/vendor/recorder/recorderWorker.js" type="application/javascript"></script>
 <script src="js/AudioInterface.js" type="application/javascript"></script>
+<script src="js/MasterControls.js" type="application/javascript"></script>
 <script src="js/AudialSafe.js" type="application/javascript"></script>
-
-<script type="application/javascript">
-    $(window).load(function() {
-
-        var opts = {
-            lines: 24, // The number of lines to draw
-            angle: 0, // The length of each line
-            lineWidth: 0.44, // The line thickness
-            pointer: {
-                length: 0.9, // The radius of the inner circle
-                strokeWidth: 0.035, // The rotation offset
-                color: '#000000' // Fill color
-            },
-            limitMax: 'true',   // If true, the pointer will not go past the end of the gauge
-            colorStart: '#6FADCF',   // Colors
-            colorStop: '#8FC0DA',    // just experiment with them
-            strokeColor: '#E0E0E0',   // to see which ones work best for you
-            generateGradient: true
-        };
-        var target = document.getElementById('currentLevel'); // your canvas element
-        var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-        gauge.maxValue = 3000; // set max gauge value
-        gauge.animationSpeed = 12; // set animation speed (32 is default value)
-        gauge.set(2100); // set actual value
-
-        window.setInterval(function() {
-            gauge.set(Math.random() * (3000 - 1) + 1)
-        }, 80);
-
-//        $('#secondaryThreshold').change(function() {
-//            var level = $('#secondaryThreshold').val();
-//            console.log('>>>>> ' + level);
-//            gauge.set(level);
-//        });
-
-    });
-</script>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
