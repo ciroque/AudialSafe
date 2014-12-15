@@ -124,7 +124,7 @@
             <div class="row">
                 <div class="col-lg-3"><label for="secondaryThreshold">Secondary Threshold</label></div>
                 <div class="col-lg-8">
-                    <input type="range" id="secondaryThreshold" name="secondaryThreshold" placeholder="Secondary Threshold" min="0" max="1000"/>
+                    <input type="range" id="secondaryThreshold" name="secondaryThreshold" placeholder="Secondary Threshold" min="1" max="3000"/>
                 </div>
                 <div class="col-lg-1">&nbsp;</div>
             </div>
@@ -139,20 +139,26 @@
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
 <script src="assets/gauge.min.js"></script>
+<script src="js/EventManager.js" type="application/javascript"></script>
+<script src="js/Strings.js" type="application/javascript"></script>
+<script src="js/vendor/recorder/recorder.js" type="application/javascript"></script>
+<script src="js/vendor/recorder/recorderWorker.js" type="application/javascript"></script>
+<script src="js/AudioInterface.js" type="application/javascript"></script>
+<script src="js/AudialSafe.js" type="application/javascript"></script>
 
 <script type="application/javascript">
     $(window).load(function() {
 
         var opts = {
-            lines: 12, // The number of lines to draw
-            angle: 0.15, // The length of each line
+            lines: 24, // The number of lines to draw
+            angle: 0, // The length of each line
             lineWidth: 0.44, // The line thickness
             pointer: {
                 length: 0.9, // The radius of the inner circle
                 strokeWidth: 0.035, // The rotation offset
                 color: '#000000' // Fill color
             },
-            limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
+            limitMax: 'true',   // If true, the pointer will not go past the end of the gauge
             colorStart: '#6FADCF',   // Colors
             colorStop: '#8FC0DA',    // just experiment with them
             strokeColor: '#E0E0E0',   // to see which ones work best for you
@@ -163,6 +169,16 @@
         gauge.maxValue = 3000; // set max gauge value
         gauge.animationSpeed = 12; // set animation speed (32 is default value)
         gauge.set(2100); // set actual value
+
+        window.setInterval(function() {
+            gauge.set(Math.random() * (3000 - 1) + 1)
+        }, 80);
+
+//        $('#secondaryThreshold').change(function() {
+//            var level = $('#secondaryThreshold').val();
+//            console.log('>>>>> ' + level);
+//            gauge.set(level);
+//        });
 
     });
 </script>
