@@ -1,10 +1,6 @@
 "use strict";
 
 var Strings = {
-    Classes: {
-    },
-    ButtonTitles : {
-    },
     Events: {
         AudioFileProcessed          : 'audio-file-processed',
         AudioFileReady              : 'audio-file-ready',
@@ -13,6 +9,6 @@ var Strings = {
         StopRecordingButtonClicked  : 'stop-recording-button-clicked'
     },
     LocalStoreKeys: {
-        SettingKey                  : 'setting-'   // NOTE: This value will be appended with the setting-specific name for uniqueness.
+        SettingKey                  : 'setting-'   // NOTE: the setting-specific name will be appended for uniqueness.
     }
 };
