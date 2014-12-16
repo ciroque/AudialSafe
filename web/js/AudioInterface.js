@@ -35,7 +35,7 @@ com.marchex.audial.Audio.prototype.init = function () {
 
         //console.log('>>> REGISTERING onaudioprocess CALLBACK');
         self.scriptNode.onaudioprocess = function(e) {
-            //console.log('>>>>>> onaudioprocess ' + e);
+            console.log('>>>>>> onaudioprocess ' + e);
         };
         //console.log('>>> REGISTERED onaudioprocess CALLBACK');
     };
@@ -78,12 +78,6 @@ com.marchex.audial.Audio.prototype.registerRecordingHandlers = function() {
     this.eventSink.registerHandler(Strings.Events.StartRecordingButtonClicked, startHandler);
     this.eventSink.registerHandler(Strings.Events.StopRecordingButtonClicked, stopHandler);
     this.eventSink.registerHandler(Strings.Events.AudioFileProcessed, fileProcessedHandler);
-
-    //for(var p in this.scriptNode) {
-    //    if(this.scriptNode.hasOwnProperty(p)) {
-    //        console.log('>>>>> ' + p + ' => ' + this.scriptNode[p]);
-    //    }
-    //}
 
     return this;
 };
