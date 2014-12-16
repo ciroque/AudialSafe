@@ -6,18 +6,22 @@ com.marchex.audial = com.marchex.audial || {};
 
 com.marchex.audial.AudialSafe = function() {
     this.eventManager = new com.marchex.audial.EventManager();
+    this.storage = new com.marchex.audial.Storage();
+    this.settingSliders = new com.marchex.audial.SettingSliders(this.eventManager, this.storage);
     this.masterControls = new com.marchex.audial.MasterControls(this.eventManager);
     return this;
 };
 
 com.marchex.audial.AudialSafe.prototype.init = function() {
     console.log('AudialSafe::init');
+
     this.audio = new com.marchex.audial.Audio(this.eventManager);
     this.audio.init();
+    this.settingSliders.init();
     this.masterControls.init();
 
     this.eventManager.registerHandler(Strings.Events.AudioFileReady, function(args) {
-
+        console.log(Strings.Events.AudioFileReady + ' event handler...');
     });
 
     return this;
