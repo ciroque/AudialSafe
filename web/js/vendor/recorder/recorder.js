@@ -6,7 +6,12 @@
     var config = cfg || {};
     var bufferLen = config.bufferLen || 4096;
     this.context = source.context;
-    this.node = this.context.createScriptProcessor(bufferLen, 2, 2);
+    this.scriptProcessor = this.context.createScriptProcessor(bufferLen, 2, 2);
+
+    for(var p in this.scriptProcessor) {
+      console.log('#######> ' + p + ' => ' + this.scriptProcessor[p]);
+    }
+
     var worker = new Worker(config.workerPath || WORKER_PATH);
     worker.postMessage({
       command: 'init',
@@ -17,7 +22,8 @@
     var recording = false,
       currCallback;
 
-    this.node.onaudioprocess = function(e){
+    this.scriptProcessor.onaudioprocess = function(e){
+      console.log('[[[[[[ ' + e.inputBuffer.getChannelData(0) + ' ]]]]]');
       if (!recording) return;
       worker.postMessage({
         command: 'record',
@@ -68,8 +74,8 @@
       currCallback(blob);
     };
 
-    source.connect(this.node);
-    this.node.connect(this.context.destination);    // this should not be necessary
+    source.connect(this.scriptProcessor);
+    this.scriptProcessor.connect(this.context.destination);    // this should not be necessary
   };
 
   Recorder.forceDownload = function(blob, filename){

@@ -15,6 +15,11 @@ com.marchex.audial.AudialSafe.prototype.init = function() {
     this.audio = new com.marchex.audial.Audio(this.eventManager);
     this.audio.init();
     this.masterControls.init();
+
+    this.eventManager.registerHandler(Strings.Events.AudioFileReady, function(args) {
+
+    });
+
     return this;
 };
 

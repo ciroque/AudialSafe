@@ -7,38 +7,41 @@ com.marchex.audial = com.marchex.audial || {};
 com.marchex.audial.Audio = function(sink) {
     this.eventSink = sink;
     this.context = null;
-    this.recorder = null;
     return this;
 };
 
 com.marchex.audial.Audio.prototype.init = function () {
     console.log('Audio::init');
 
+    if (!navigator.getUserMedia) {
+        navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    }
+
     var self = this;
 
-    var successHandler = function (stream) {
-        self.stream = stream;
-        self.context = new AudioContext();
-        self.microphone = self.context.createMediaStreamSource(stream);
-        self.recorder = new Recorder(self.microphone);
+    var successHandler = function(stream) {
+        var context            = new AudioContext();
+
+        self.stream             = stream;
+        self.microphone         = context.createMediaStreamSource(stream);
+        self.context            = self.microphone.context;
+        self.scriptProcessor    = self.context.createScriptProcessor(4096, 2, 2);
+        self.gainNode           = self.context.createGain();
+
+        self.registerRecordingHandlers();
     };
 
     var failureHandler = function (error) {
         console.log('Audio::init: Failed to get user stream: ' + JSON.stringify(error));
     };
 
-    if (!navigator.getUserMedia) {
-        navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-    }
-
     navigator.getUserMedia({'audio': true}, successHandler, failureHandler);
-
-    this.registerRecordingHandlers();
 
     return this;
 };
 
 com.marchex.audial.Audio.prototype.registerRecordingHandlers = function() {
+    console.log('Audio::registerRecordingHandlers');
 
     var self = this;
 
@@ -61,33 +64,37 @@ com.marchex.audial.Audio.prototype.registerRecordingHandlers = function() {
 
     var fileProcessedHandler = function(args) {
         console.log('Audio::registerRecordingHandlers:fileProcessedHandler: ' + JSON.stringify(args));
-        self.recorder.clear();
     };
 
     this.eventSink.registerHandler(Strings.Events.StartRecordingButtonClicked, startHandler);
     this.eventSink.registerHandler(Strings.Events.StopRecordingButtonClicked, stopHandler);
     this.eventSink.registerHandler(Strings.Events.AudioFileProcessed, fileProcessedHandler);
 
+    this.scriptProcessor.onaudioprocess = function(e) {
+        console.log('>>>>>> onaudioprocess => ' + e);
+    };
+
+    for(var p in this.scriptProcessor) {
+        if(this.scriptProcessor.hasOwnProperty(p)) {
+            console.log('>>>>> ' + p + ' => ' + this.scriptProcessor[p]);
+        }
+    }
+
+    // TODO: This should go away.
+    //this.recorder = new Recorder(self.microphone);
+
     return this;
 };
 
 com.marchex.audial.Audio.prototype.startRecording = function() {
     console.log('Audio::startRecording');
-
-    console.log('!!!!!!>> context(' + this.context + ') microphone(' + this.microphone + ') stream(' + this.stream + ')');
-    this.microphone.connect(this.context.destination);
-    this.recorder.record();
+    this.microphone.connect(this.gainNode);
+    //this.microphone.connect(this.context.destination);
     return this;
 };
 
 com.marchex.audial.Audio.prototype.stopRecording = function() {
     console.log('Audio::stopRecording');
-    var self = this;
-    this.recorder.stop();
     this.microphone.disconnect();
-    this.recorder.exportWAV(function(data) {
-        self.eventSink.dispatchEvent(Strings.Events.AudioFileReady, { source: self.stopSource, audio: data });
-    });
-
     return this;
 };
