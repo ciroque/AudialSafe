@@ -50,6 +50,6 @@ $(window).load(function() {
 
     window.setInterval(function() {
         gauge.set(Math.random() * (3000 - 1) + 1)
-    }, 80);
+    }, 100);
 
 });

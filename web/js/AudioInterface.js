@@ -25,10 +25,19 @@ com.marchex.audial.Audio.prototype.init = function () {
         self.stream             = stream;
         self.microphone         = context.createMediaStreamSource(stream);
         self.context            = self.microphone.context;
-        self.scriptProcessor    = self.context.createScriptProcessor(4096, 2, 2);
+        self.scriptNode         = self.context.createScriptProcessor(4096, 1, 1);
         self.gainNode           = self.context.createGain();
 
         self.registerRecordingHandlers();
+
+        // TODO: This should go away.
+        //self.recorder = new Recorder(self.microphone);
+
+        console.log('>>> REGISTERING onaudioprocess CALLBACK');
+        self.scriptNode.onaudioprocess = function(e) {
+            console.log('>>>>>> onaudioprocess ' + e);
+        };
+        console.log('>>> REGISTERED onaudioprocess CALLBACK');
     };
 
     var failureHandler = function (error) {
@@ -70,18 +79,11 @@ com.marchex.audial.Audio.prototype.registerRecordingHandlers = function() {
     this.eventSink.registerHandler(Strings.Events.StopRecordingButtonClicked, stopHandler);
     this.eventSink.registerHandler(Strings.Events.AudioFileProcessed, fileProcessedHandler);
 
-    this.scriptProcessor.onaudioprocess = function(e) {
-        console.log('>>>>>> onaudioprocess => ' + e);
-    };
-
-    for(var p in this.scriptProcessor) {
-        if(this.scriptProcessor.hasOwnProperty(p)) {
-            console.log('>>>>> ' + p + ' => ' + this.scriptProcessor[p]);
+    for(var p in this.scriptNode) {
+        if(this.scriptNode.hasOwnProperty(p)) {
+            console.log('>>>>> ' + p + ' => ' + this.scriptNode[p]);
         }
     }
-
-    // TODO: This should go away.
-    //this.recorder = new Recorder(self.microphone);
 
     return this;
 };
