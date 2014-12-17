@@ -65,8 +65,9 @@ com.marchex.audial.ThresholdMonitor.prototype.handleVolumeSample = function(samp
 
     if(sample.timestamp >= delta) {
         this.processPrimaryThreshold(sample);
-        this.processSecondaryThreshold(sample);
     }
+
+    this.processSecondaryThreshold(sample);
 
     return this;
 };

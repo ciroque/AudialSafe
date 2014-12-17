@@ -40,5 +40,9 @@ com.marchex.audial.UiWarningListener.prototype.registerHandlers = function() {
         self.el.text('');
     });
 
+    this.eventManager.registerHandler(Strings.Events.StopRecordingButtonClicked, function(args) {
+        self.el.text('');
+    });
+
     return this;
 };
