@@ -101,12 +101,10 @@ com.marchex.audial.ThresholdMonitor.prototype.processSecondaryThreshold = functi
         this.secondaryThresholdHistory.isset = true;
         this.secondaryThresholdHistory.timestamp = sample.timestamp;
         this.eventManager.dispatchEvent(Strings.Events.SecondaryThresholdExceeded, sample);
-    } else {
-        var now = new Date().getMilliseconds();
-        var delta = this.secondaryThresholdHistory.timestamp + (this.secondaryThresholdTimeoutSeconds * 1000);
-        if(now > delta) {
-            this.eventManager.dispatchEvent(Strings.Events.SecondaryThresholdReset, sample);
-        }
+        var self = this;
+        window.setTimeout(function() {
+            self.eventManager.dispatchEvent(Strings.Events.SecondaryThresholdReset, {});
+        }, (this.secondaryThresholdTimeoutSeconds * 1000));
     }
 
     return this;
