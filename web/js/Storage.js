@@ -4,8 +4,8 @@ var com = com || {};
 com.marchex = com.marchex || {};
 com.marchex.audial = com.marchex.audial || {};
 
-com.marchex.audial.Storage = function() {
-
+com.marchex.audial.Storage = function(logger) {
+    this.logger = logger;
     return this;
 };
 

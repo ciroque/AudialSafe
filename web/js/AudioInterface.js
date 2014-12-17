@@ -4,14 +4,15 @@ var com = com || {};
 com.marchex = com.marchex || {};
 com.marchex.audial = com.marchex.audial || {};
 
-com.marchex.audial.Audio = function(sink) {
+com.marchex.audial.Audio = function(sink, logger) {
     this.eventSink = sink;
+    this.logger = logger;
     this.context = null;
     return this;
 };
 
 com.marchex.audial.Audio.prototype.init = function () {
-    console.log('Audio::init');
+    this.logger.write('Audio::init');
 
     if (!navigator.getUserMedia) {
         navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -20,7 +21,7 @@ com.marchex.audial.Audio.prototype.init = function () {
     var self = this;
 
     var successHandler = function(stream) {
-        var context            = new AudioContext();
+        var context             = new AudioContext();
 
         self.stream             = stream;
         self.microphone         = context.createMediaStreamSource(stream);
@@ -30,7 +31,7 @@ com.marchex.audial.Audio.prototype.init = function () {
         self.registerRecordingHandlers();
 
         self.scriptNode.onaudioprocess = function(audioProcessEvent) {
-            console.log('scriptNode::onaudioprocess ' + audioProcessEvent.target);
+            self.logger.write('scriptNode::onaudioprocess ' + audioProcessEvent.target);
 
             var buffer = audioProcessEvent.inputBuffer.getChannelData(0);
             var length = buffer.length;
@@ -47,7 +48,7 @@ com.marchex.audial.Audio.prototype.init = function () {
     };
 
     var failureHandler = function (error) {
-        console.log('Audio::init: Failed to get user stream: ' + JSON.stringify(error));
+        self.logger.write('Audio::init: Failed to get user stream: ' + JSON.stringify(error));
     };
 
     navigator.getUserMedia({'audio': true}, successHandler, failureHandler);
@@ -56,29 +57,29 @@ com.marchex.audial.Audio.prototype.init = function () {
 };
 
 com.marchex.audial.Audio.prototype.registerRecordingHandlers = function() {
-    console.log('Audio::registerRecordingHandlers');
+    this.logger.write('Audio::registerRecordingHandlers');
 
     var self = this;
 
     var startHandler = function(args) {
-        console.log('Audio::handleStartRecordingEvent');
+        self.logger.write('Audio::handleStartRecordingEvent');
         self.startSource = args.source;
         self.startRecording();
     };
 
     var stopHandler = function(args) {
-        console.log('Audio::handleStartRecordingEvent');
+        self.logger.write('Audio::handleStartRecordingEvent');
         self.stopSource = args.source;
 
         if(self.startSource !== self.stopSource) {
-            console.log('Audio::handleStopRecordingEvent: ERROR: Something went wrong. startSource("' + self.startSource + '"), stopSource("' + self.stopSource + '")');
+            self.logger.write('Audio::handleStopRecordingEvent: ERROR: Something went wrong. startSource("' + self.startSource + '"), stopSource("' + self.stopSource + '")');
         }
 
         self.stopRecording();
     };
 
     var fileProcessedHandler = function(args) {
-        console.log('Audio::registerRecordingHandlers:fileProcessedHandler: ' + JSON.stringify(args));
+        self.logger.write('Audio::registerRecordingHandlers:fileProcessedHandler: ' + JSON.stringify(args));
     };
 
     this.eventSink.registerHandler(Strings.Events.StartRecordingButtonClicked, startHandler);
@@ -89,7 +90,7 @@ com.marchex.audial.Audio.prototype.registerRecordingHandlers = function() {
 };
 
 com.marchex.audial.Audio.prototype.startRecording = function() {
-    console.log('Audio::startRecording');
+    this.logger.write('Audio::startRecording');
 
     this.microphone.connect(this.scriptNode);
     this.scriptNode.connect(this.context.destination);
@@ -98,7 +99,7 @@ com.marchex.audial.Audio.prototype.startRecording = function() {
 };
 
 com.marchex.audial.Audio.prototype.stopRecording = function() {
-    console.log('Audio::stopRecording');
+    this.logger.write('Audio::stopRecording');
 
     this.microphone.disconnect(this.scriptNode);
     this.scriptNode.disconnect(this.context.destination);

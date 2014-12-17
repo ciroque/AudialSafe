@@ -4,8 +4,9 @@ var com = com || {};
 com.marchex = com.marchex || {};
 com.marchex.audial = com.marchex.audial || {};
 
-com.marchex.audial.SettingSlider = function(ele, sink, storage) {
+com.marchex.audial.SettingSlider = function(ele, sink, logger, storage) {
     this.eventSink = sink;
+    this.logger = logger;
     this.storage = storage;
     this.ele = $(ele);
     this.input = $(ele).find('input[type=range]');
@@ -15,7 +16,7 @@ com.marchex.audial.SettingSlider = function(ele, sink, storage) {
 };
 
 com.marchex.audial.SettingSlider.prototype.init = function() {
-    console.log('SettingSlider::init');
+    this.logger.write('SettingSlider::init');
 
     this.setInitialValue();
 
