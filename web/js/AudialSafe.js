@@ -12,7 +12,7 @@ com.marchex.audial.AudialSafe = function() {
     this.masterControls = new com.marchex.audial.MasterControls(this.eventManager, this.logger);
     this.levelMeter = new com.marchex.audial.LevelMeter(this.eventManager, this.logger);
     this.audio = new com.marchex.audial.Audio(this.eventManager, this.logger);
-    this.thresholdListener = new com.marchex.audial.ThresholdListener(this.eventManager, this.logger);
+    this.thresholdListener = new com.marchex.audial.ThresholdMonitor(this.eventManager, this.logger);
     return this;
 };
 

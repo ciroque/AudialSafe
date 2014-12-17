@@ -4,7 +4,7 @@ var com = com || {};
 com.marchex = com.marchex || {};
 com.marchex.audial = com.marchex.audial || {};
 
-com.marchex.audial.ThresholdListener = function(eventManager, logger) {
+com.marchex.audial.ThresholdMonitor = function(eventManager, logger) {
     this.eventManager = eventManager;
     this.logger = logger;
     this.settings = null;
@@ -13,8 +13,8 @@ com.marchex.audial.ThresholdListener = function(eventManager, logger) {
     return this;
 };
 
-com.marchex.audial.ThresholdListener.prototype.init = function() {
-    this.logger.write('ThresholdListener::init');
+com.marchex.audial.ThresholdMonitor.prototype.init = function() {
+    this.logger.write('ThresholdMonitor::init');
     this.registerHandlers();
 
     this.eventManager.dispatchEvent(Strings.Events.SettingsRequest, {});
@@ -22,8 +22,8 @@ com.marchex.audial.ThresholdListener.prototype.init = function() {
     return this;
 };
 
-com.marchex.audial.ThresholdListener.prototype.registerHandlers = function() {
-    this.logger.write('ThresholdListener::registerHandlers');
+com.marchex.audial.ThresholdMonitor.prototype.registerHandlers = function() {
+    this.logger.write('ThresholdMonitor::registerHandlers');
 
     var self = this;
 
@@ -42,8 +42,8 @@ com.marchex.audial.ThresholdListener.prototype.registerHandlers = function() {
     return this;
 };
 
-com.marchex.audial.ThresholdListener.prototype.updateSettings = function(settings) {
-    this.logger.write('ThresholdListener::updateSettings');
+com.marchex.audial.ThresholdMonitor.prototype.updateSettings = function(settings) {
+    this.logger.write('ThresholdMonitor::updateSettings');
 
     var key = settings.setting;
     var prev = this.settings[key];
@@ -53,13 +53,13 @@ com.marchex.audial.ThresholdListener.prototype.updateSettings = function(setting
     return this;
 };
 
-com.marchex.audial.ThresholdListener.prototype.handleSettingsDump = function(args) {
+com.marchex.audial.ThresholdMonitor.prototype.handleSettingsDump = function(args) {
     this.settings = args.settings;
     return this;
 };
 
-com.marchex.audial.ThresholdListener.prototype.handleVolumeSample = function(sample) {
-    this.logger.write('ThresholdListener::handleVolumeSample ' + JSON.stringify(sample));
+com.marchex.audial.ThresholdMonitor.prototype.handleVolumeSample = function(sample) {
+    this.logger.write('ThresholdMonitor::handleVolumeSample ' + JSON.stringify(sample));
 
     var delta = (this.primaryThresholdHistory.timestamp + (this.settings.sampleRate * 1000));
 
@@ -71,7 +71,7 @@ com.marchex.audial.ThresholdListener.prototype.handleVolumeSample = function(sam
     return this;
 };
 
-com.marchex.audial.ThresholdListener.prototype.processPrimaryThreshold = function(sample) {
+com.marchex.audial.ThresholdMonitor.prototype.processPrimaryThreshold = function(sample) {
     this.primaryThresholdHistory.timestamp = sample.timestamp;
     if(sample.rms >= this.settings.primaryThreshold) {
         this.primaryThresholdHistory.count += 1;
@@ -94,7 +94,7 @@ com.marchex.audial.ThresholdListener.prototype.processPrimaryThreshold = functio
     return this;
 };
 
-com.marchex.audial.ThresholdListener.prototype.processSecondaryThreshold = function(sample) {
+com.marchex.audial.ThresholdMonitor.prototype.processSecondaryThreshold = function(sample) {
     if(sample.rms >= this.settings.secondaryThreshold) {
         this.eventManager.dispatchEvent(Strings.Events.SecondaryThresholdExceeded, sample);
     } else {
