@@ -2,9 +2,13 @@
 
 var Strings = {
     Events: {
-        AudioFileProcessed          : 'audio-file-processed',
-        AudioFileReady              : 'audio-file-ready',
+        PrimaryThresholdExceeded    : 'primary-threshold-exceeded',
+        PrimaryThresholdReset       : 'primary-threshold-reset',
+        SecondaryThresholdExceeded  : 'secondary-threshold-exceeded',
+        SecondaryThresholdReset     : 'secondary-threshold-reset',
         SettingChanged              : 'setting-changed',
+        SettingsDump                : 'settings-dump',
+        SettingsRequest             : 'settings-request',
         StartRecordingButtonClicked : 'start-recording-button-clicked',
         StopRecordingButtonClicked  : 'stop-recording-button-clicked',
         VolumeSample                : 'volume-sample'

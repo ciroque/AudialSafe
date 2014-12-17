@@ -33,6 +33,14 @@ com.marchex.audial.Audio.prototype.init = function () {
         self.scriptNode.onaudioprocess = function(audioProcessEvent) {
             self.logger.write('scriptNode::onaudioprocess ' + audioProcessEvent.target);
 
+            //var props = [];
+            //for(var prop in audioProcessEvent) {
+            //    if(audioProcessEvent.hasOwnProperty(prop)) {
+            //        props.push(prop + ' => ' + audioProcessEvent[prop]);
+            //    }
+            //}
+            //console.log('>>>>>>>>>>> audioProcessEvent' + props);
+
             var buffer = audioProcessEvent.inputBuffer.getChannelData(0);
             var length = buffer.length;
             var sum = 0;
@@ -43,7 +51,7 @@ com.marchex.audial.Audio.prototype.init = function () {
 
             var rms = Math.sqrt(sum / length) * 1000;
 
-            self.eventManager.dispatchEvent(Strings.Events.VolumeSample, { bufferLength: length, rms: rms, sum: sum });
+            self.eventManager.dispatchEvent(Strings.Events.VolumeSample, { rms: rms, timestamp: audioProcessEvent.timeStamp });
         };
     };
 
@@ -78,13 +86,8 @@ com.marchex.audial.Audio.prototype.registerHandlers = function() {
         self.stopRecording();
     };
 
-    var fileProcessedHandler = function(args) {
-        self.logger.write('Audio::registerHandlers:fileProcessedHandler: ' + JSON.stringify(args));
-    };
-
     this.eventManager.registerHandler(Strings.Events.StartRecordingButtonClicked, startHandler);
     this.eventManager.registerHandler(Strings.Events.StopRecordingButtonClicked, stopHandler);
-    this.eventManager.registerHandler(Strings.Events.AudioFileProcessed, fileProcessedHandler);
 
     return this;
 };

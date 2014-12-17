@@ -12,16 +12,18 @@ com.marchex.audial.AudialSafe = function() {
     this.masterControls = new com.marchex.audial.MasterControls(this.eventManager, this.logger);
     this.levelMeter = new com.marchex.audial.LevelMeter(this.eventManager, this.logger);
     this.audio = new com.marchex.audial.Audio(this.eventManager, this.logger);
+    this.thresholdListener = new com.marchex.audial.ThresholdListener(this.eventManager, this.logger);
     return this;
 };
 
 com.marchex.audial.AudialSafe.prototype.init = function() {
     this.logger.write('AudialSafe::init');
 
-    this.audio.init();
     this.settingSliders.init();
     this.masterControls.init();
     this.levelMeter.init();
+    this.audio.init();
+    this.thresholdListener.init();
 
     return this;
 };
@@ -29,4 +31,10 @@ com.marchex.audial.AudialSafe.prototype.init = function() {
 $(window).load(function() {
     var audial = new com.marchex.audial.AudialSafe();
     audial.init();
+
+    testStuff();
 });
+
+function testStuff() {
+
+}

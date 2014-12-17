@@ -32,6 +32,10 @@ com.marchex.audial.SettingSlider.prototype.init = function() {
     return this;
 };
 
+com.marchex.audial.SettingSlider.prototype.getKey = function() {
+    return this.key;
+};
+
 com.marchex.audial.SettingSlider.prototype.setInitialValue = function() {
     var value = this.retrieveValue() || 200;
     this.input.val(value);
