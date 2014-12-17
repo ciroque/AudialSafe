@@ -7,6 +7,8 @@ com.marchex.audial = com.marchex.audial || {};
 com.marchex.audial.LevelMeter = function(sink, opts) {
     this.eventSink = sink;
     this.ele = document.getElementById('currentLevel');
+    this.peakRms = 0;
+    this.peakRmsDisplay = $('#peakRms');
 
     this.opts = opts || {
         lines               : 24, // The number of lines to draw
@@ -47,6 +49,10 @@ com.marchex.audial.LevelMeter.prototype.registerHandlers = function() {
     var self = this;
 
     this.eventSink.registerHandler(Strings.Events.VolumeSample, function(args) {
+        if(args.rms > self.peakRms) {
+            self.peakRms = args.rms;
+            self.peakRmsDisplay.text(parseInt(self.peakRms));
+        }
         self.setValue(args.rms);
     });
 
