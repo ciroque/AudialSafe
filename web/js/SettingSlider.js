@@ -22,7 +22,7 @@ com.marchex.audial.SettingSlider.prototype.init = function() {
 
     var self = this;
 
-    this.ele.change(function() {
+    this.ele.bind('input', function() {
         var newValue = self.input.val();
         self.valueDisplay.text(newValue);
         self.storeValue();
