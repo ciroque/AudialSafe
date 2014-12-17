@@ -31,11 +31,11 @@ com.marchex.audial.Audio.prototype.init = function () {
         self.registerRecordingHandlers();
 
         self.scriptNode.onaudioprocess = function(e) {
-            console.log('scriptNode::onaudioprocess ' + e);
+            console.log('scriptNode::onaudioprocess ' + self.gainNode.gain.value);
         };
 
         self.gainNode.onaudioprocess = function(e) {
-            console.log('scriptgainNode::onaudioprocess ' + e);
+            console.log('gainNode::onaudioprocess ' + e);
         };
     };
 
@@ -94,6 +94,7 @@ com.marchex.audial.Audio.prototype.startRecording = function() {
 com.marchex.audial.Audio.prototype.stopRecording = function() {
     console.log('Audio::stopRecording');
 
+    this.microphone.disconnect(this.gainNode);
     this.microphone.disconnect(this.scriptNode);
     this.scriptNode.disconnect(this.context.destination);
 
