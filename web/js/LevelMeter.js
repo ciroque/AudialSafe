@@ -38,7 +38,7 @@ com.marchex.audial.LevelMeter = function(eventManager, logger, opts) {
 com.marchex.audial.LevelMeter.prototype.init = function() {
     this.logger.write('LevelMeter::init');
 
-    this.gauge.maxValue = 500;
+    this.gauge.maxValue = 700;
     this.gauge.animationSpeed = 12;
     this.gauge.set(0);
 
