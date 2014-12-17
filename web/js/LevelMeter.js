@@ -32,9 +32,33 @@ com.marchex.audial.LevelMeter = function(sink, opts) {
 com.marchex.audial.LevelMeter.prototype.init = function() {
     console.log('LevelMeter::init');
 
-    this.gauge.maxValue = 3000;
+    this.gauge.maxValue = 500;
     this.gauge.animationSpeed = 12;
-    this.gauge.set(1400);
+    this.gauge.set(0);
 
+    this.registerHandlers();
+
+    return this;
+};
+
+com.marchex.audial.LevelMeter.prototype.registerHandlers = function() {
+    console.log('LevelMeter::init');
+
+    var self = this;
+
+    this.eventSink.registerHandler(Strings.Events.VolumeSample, function(args) {
+        self.setValue(args.rms);
+    });
+
+    this.eventSink.registerHandler(Strings.Events.StopRecordingButtonClicked, function() {
+        self.setValue(0);
+    });
+
+    return this;
+};
+
+com.marchex.audial.LevelMeter.prototype.setValue = function(value) {
+    console.log('LevelMeter::init');
+    this.gauge.set(value);
     return this;
 };

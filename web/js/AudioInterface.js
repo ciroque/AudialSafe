@@ -26,16 +26,23 @@ com.marchex.audial.Audio.prototype.init = function () {
         self.microphone         = context.createMediaStreamSource(stream);
         self.context            = self.microphone.context;
         self.scriptNode         = self.context.createScriptProcessor(4096, 1, 1);
-        self.gainNode           = self.context.createGain();
 
         self.registerRecordingHandlers();
 
-        self.scriptNode.onaudioprocess = function(e) {
-            console.log('scriptNode::onaudioprocess ' + self.gainNode.gain.value);
-        };
+        self.scriptNode.onaudioprocess = function(audioProcessEvent) {
+            console.log('scriptNode::onaudioprocess ' + audioProcessEvent.target);
 
-        self.gainNode.onaudioprocess = function(e) {
-            console.log('gainNode::onaudioprocess ' + e);
+            var buffer = audioProcessEvent.inputBuffer.getChannelData(0);
+            var length = buffer.length;
+            var sum = 0;
+            for(var index = 0; index < length; index++) {
+                var value = buffer[index];
+                sum += value * value;
+            }
+
+            var rms = Math.sqrt(sum / length) * 1000;
+
+            self.eventSink.dispatchEvent(Strings.Events.VolumeSample, { bufferLength: length, rms: rms, sum: sum });
         };
     };
 
@@ -84,7 +91,6 @@ com.marchex.audial.Audio.prototype.registerRecordingHandlers = function() {
 com.marchex.audial.Audio.prototype.startRecording = function() {
     console.log('Audio::startRecording');
 
-    this.microphone.connect(this.gainNode);
     this.microphone.connect(this.scriptNode);
     this.scriptNode.connect(this.context.destination);
 
@@ -94,7 +100,6 @@ com.marchex.audial.Audio.prototype.startRecording = function() {
 com.marchex.audial.Audio.prototype.stopRecording = function() {
     console.log('Audio::stopRecording');
 
-    this.microphone.disconnect(this.gainNode);
     this.microphone.disconnect(this.scriptNode);
     this.scriptNode.disconnect(this.context.destination);
 
