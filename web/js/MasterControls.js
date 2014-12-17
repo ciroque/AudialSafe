@@ -4,8 +4,8 @@ var com = com || {};
 com.marchex = com.marchex || {};
 com.marchex.audial = com.marchex.audial || {};
 
-com.marchex.audial.MasterControls = function(sink, logger) {
-    this.eventManager = sink;
+com.marchex.audial.MasterControls = function(eventManager, logger) {
+    this.eventManager = eventManager;
     this.logger = logger;
     this.startListeningButton = $('#startListening');
     this.stopListeningButton = $('#stopListening');

@@ -4,8 +4,8 @@ var com = com || {};
 com.marchex = com.marchex || {};
 com.marchex.audial = com.marchex.audial || {};
 
-com.marchex.audial.SettingSlider = function(ele, sink, logger, storage) {
-    this.eventSink = sink;
+com.marchex.audial.SettingSlider = function(ele, eventManager, logger, storage) {
+    this.eventManager = eventManager;
     this.logger = logger;
     this.storage = storage;
     this.ele = $(ele);
@@ -26,7 +26,7 @@ com.marchex.audial.SettingSlider.prototype.init = function() {
         var newValue = self.input.val();
         self.valueDisplay.text(newValue);
         self.storeValue();
-        self.eventSink.dispatchEvent(Strings.Events.SettingChanged, { value: newValue, setting: self.key });
+        self.eventManager.dispatchEvent(Strings.Events.SettingChanged, { value: newValue, setting: self.key });
     });
 
     return this;

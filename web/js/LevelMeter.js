@@ -4,8 +4,8 @@ var com = com || {};
 com.marchex = com.marchex || {};
 com.marchex.audial = com.marchex.audial || {};
 
-com.marchex.audial.LevelMeter = function(sink, logger, opts) {
-    this.eventSink = sink;
+com.marchex.audial.LevelMeter = function(eventManager, logger, opts) {
+    this.eventManager = eventManager;
     this.logger = logger;
     this.ele = document.getElementById('currentLevel');
     this.peakRms = 0;
@@ -49,7 +49,7 @@ com.marchex.audial.LevelMeter.prototype.registerHandlers = function() {
 
     var self = this;
 
-    this.eventSink.registerHandler(Strings.Events.VolumeSample, function(args) {
+    this.eventManager.registerHandler(Strings.Events.VolumeSample, function(args) {
         if(args.rms > self.peakRms) {
             self.peakRms = args.rms;
             self.peakRmsDisplay.text(parseInt(self.peakRms));
@@ -57,7 +57,7 @@ com.marchex.audial.LevelMeter.prototype.registerHandlers = function() {
         self.setValue(args.rms);
     });
 
-    this.eventSink.registerHandler(Strings.Events.StopRecordingButtonClicked, function() {
+    this.eventManager.registerHandler(Strings.Events.StopRecordingButtonClicked, function() {
         self.setValue(0);
     });
 

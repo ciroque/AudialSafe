@@ -4,8 +4,8 @@ var com = com || {};
 com.marchex = com.marchex || {};
 com.marchex.audial = com.marchex.audial || {};
 
-com.marchex.audial.Audio = function(sink, logger) {
-    this.eventSink = sink;
+com.marchex.audial.Audio = function(eventManager, logger) {
+    this.eventManager = eventManager;
     this.logger = logger;
     this.context = null;
     return this;
@@ -43,7 +43,7 @@ com.marchex.audial.Audio.prototype.init = function () {
 
             var rms = Math.sqrt(sum / length) * 1000;
 
-            self.eventSink.dispatchEvent(Strings.Events.VolumeSample, { bufferLength: length, rms: rms, sum: sum });
+            self.eventManager.dispatchEvent(Strings.Events.VolumeSample, { bufferLength: length, rms: rms, sum: sum });
         };
     };
 
@@ -82,9 +82,9 @@ com.marchex.audial.Audio.prototype.registerRecordingHandlers = function() {
         self.logger.write('Audio::registerRecordingHandlers:fileProcessedHandler: ' + JSON.stringify(args));
     };
 
-    this.eventSink.registerHandler(Strings.Events.StartRecordingButtonClicked, startHandler);
-    this.eventSink.registerHandler(Strings.Events.StopRecordingButtonClicked, stopHandler);
-    this.eventSink.registerHandler(Strings.Events.AudioFileProcessed, fileProcessedHandler);
+    this.eventManager.registerHandler(Strings.Events.StartRecordingButtonClicked, startHandler);
+    this.eventManager.registerHandler(Strings.Events.StopRecordingButtonClicked, stopHandler);
+    this.eventManager.registerHandler(Strings.Events.AudioFileProcessed, fileProcessedHandler);
 
     return this;
 };

@@ -4,8 +4,8 @@ var com = com || {};
 com.marchex = com.marchex || {};
 com.marchex.audial = com.marchex.audial || {};
 
-com.marchex.audial.SettingSliders = function(sink, logger, storage) {
-    this.eventSink = sink;
+com.marchex.audial.SettingSliders = function(eventManager, logger, storage) {
+    this.eventManager = eventManager;
     this.logger = logger;
     this.storage = storage;
     this.sliders = [];
@@ -18,7 +18,7 @@ com.marchex.audial.SettingSliders.prototype.init = function() {
     var sliderElements = $('.' + SLIDER_CLASS_NAME);
 
     for(var index = 0; index < sliderElements.length; index++) {
-        this.sliders.push(new com.marchex.audial.SettingSlider(sliderElements[index], this.eventSink, this.logger, this.storage).init());
+        this.sliders.push(new com.marchex.audial.SettingSlider(sliderElements[index], this.eventManager, this.logger, this.storage).init());
     }
 
     return this;
