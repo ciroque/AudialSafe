@@ -99,7 +99,7 @@ com.marchex.audial.ThresholdMonitor.prototype.processSecondaryThreshold = functi
         this.eventManager.dispatchEvent(Strings.Events.SecondaryThresholdExceeded, sample);
     } else {
         var now = new Date().getMilliseconds();
-        var delta = sample.timestamp + this.secondaryThresholdTimeoutSeconds;
+        var delta = sample.timestamp + (this.secondaryThresholdTimeoutSeconds * 1000);
         if(now > delta) {
             this.eventManager.dispatchEvent(Strings.Events.SecondaryThresholdReset, sample);
         }

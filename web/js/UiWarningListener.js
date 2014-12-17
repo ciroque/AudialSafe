@@ -32,5 +32,13 @@ com.marchex.audial.UiWarningListener.prototype.registerHandlers = function() {
         self.el.text('');
     });
 
+    this.eventManager.registerHandler(Strings.Events.SecondaryThresholdExceeded, function(args) {
+        self.el.text('WHOA!!! WAY too loud!!!');
+    });
+
+    this.eventManager.registerHandler(Strings.Events.SecondaryThresholdReset, function(args) {
+        self.el.text('');
+    });
+
     return this;
 };
