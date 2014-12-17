@@ -10,7 +10,7 @@ com.marchex.audial.ThresholdMonitor = function(eventManager, logger) {
     this.settings = null;
     this.primaryThresholdHistory = { count: 0, timestamp: 0, isset: false };
     this.secondaryThresholdHistory = { timestamp: 0, isset: false };
-    this.secondaryThresholdTimeoutSeconds = 3;
+    this.secondaryThresholdTimeoutSeconds = 5;
     return this;
 };
 
