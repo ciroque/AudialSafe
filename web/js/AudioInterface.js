@@ -28,7 +28,7 @@ com.marchex.audial.Audio.prototype.init = function () {
         self.context            = self.microphone.context;
         self.scriptNode         = self.context.createScriptProcessor(4096, 1, 1);
 
-        self.registerRecordingHandlers();
+        self.registerHandlers();
 
         self.scriptNode.onaudioprocess = function(audioProcessEvent) {
             self.logger.write('scriptNode::onaudioprocess ' + audioProcessEvent.target);
@@ -56,8 +56,8 @@ com.marchex.audial.Audio.prototype.init = function () {
     return this;
 };
 
-com.marchex.audial.Audio.prototype.registerRecordingHandlers = function() {
-    this.logger.write('Audio::registerRecordingHandlers');
+com.marchex.audial.Audio.prototype.registerHandlers = function() {
+    this.logger.write('Audio::registerHandlers');
 
     var self = this;
 
@@ -79,7 +79,7 @@ com.marchex.audial.Audio.prototype.registerRecordingHandlers = function() {
     };
 
     var fileProcessedHandler = function(args) {
-        self.logger.write('Audio::registerRecordingHandlers:fileProcessedHandler: ' + JSON.stringify(args));
+        self.logger.write('Audio::registerHandlers:fileProcessedHandler: ' + JSON.stringify(args));
     };
 
     this.eventManager.registerHandler(Strings.Events.StartRecordingButtonClicked, startHandler);

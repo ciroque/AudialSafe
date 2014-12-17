@@ -12,6 +12,7 @@ com.marchex.audial.ThresholdListener = function(eventManager, logger) {
 
 com.marchex.audial.ThresholdListener.prototype.init = function() {
     this.logger.write('ThresholdListener::init');
+    this.registerHandlers();
     return this;
 };
 
