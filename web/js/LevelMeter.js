@@ -9,7 +9,10 @@ com.marchex.audial.LevelMeter = function(eventManager, logger, opts) {
     this.logger = logger;
     this.ele = document.getElementById('currentLevel');
     this.peakRms = 0;
+    this.meanRms = 0;
+    this.rmsCount = 0;
     this.peakRmsDisplay = $('#peakRms');
+    this.meanRmsDisplay = $('#meanRms');
 
     this.opts = opts || {
         lines               : 24,           // The number of lines to draw
@@ -54,6 +57,11 @@ com.marchex.audial.LevelMeter.prototype.registerHandlers = function() {
             self.peakRms = args.rms;
             self.peakRmsDisplay.text(parseInt(self.peakRms));
         }
+
+        var meanRms = ((self.meanRms * self.rmsCount) + args.rms) / ++self.rmsCount;
+        self.meanRmsDisplay.text(parseInt(meanRms));
+        self.meanRms = meanRms;
+
         self.setValue(args.rms);
     });
 
