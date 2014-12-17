@@ -43,7 +43,7 @@
     </header>
     <main class="table-bordered">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-2">
                 <div class="sectional-padding">
                     <div class="row">
                         <div class="col-lg-12"><h2>Master Controls</h2></div>
@@ -54,9 +54,14 @@
                             <button id="stopListening" class="btn btn-info" disabled="disabled">Stop...</button>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <img height="120" width="120" id="recordingStatus" src="img/recording-cold.svg"/>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-2">&nbsp;</div>
+            <div class="col-lg-6">&nbsp;</div>
             <div class="col-lg-4">
                 <div class="row">
                     <div class="col-lg-12"><h2>Current Level</h2></div>
@@ -156,6 +161,7 @@
 <script src="js/vendor/recorder/recorder.js" type="application/javascript"></script>
 <script src="js/vendor/recorder/recorderWorker.js" type="application/javascript"></script>
 <script src="js/AudioInterface.js" type="application/javascript"></script>
+<script src="js/LevelMeter.js" type="application/javascript"></script>
 <script src="js/MasterControls.js" type="application/javascript"></script>
 <script src="js/SettingSliders.js" type="application/javascript"></script>
 <script src="js/SettingSlider.js" type="application/javascript"></script>
