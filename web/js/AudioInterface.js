@@ -30,14 +30,13 @@ com.marchex.audial.Audio.prototype.init = function () {
 
         self.registerRecordingHandlers();
 
-        // TODO: This should go away.
-        //self.recorder = new Recorder(self.microphone);
-
-        //console.log('>>> REGISTERING onaudioprocess CALLBACK');
         self.scriptNode.onaudioprocess = function(e) {
-            console.log('>>>>>> onaudioprocess ' + e);
+            console.log('scriptNode::onaudioprocess ' + self.gainNode.gain.value);
         };
-        //console.log('>>> REGISTERED onaudioprocess CALLBACK');
+
+        self.gainNode.onaudioprocess = function(e) {
+            console.log('gainNode::onaudioprocess ' + e);
+        };
     };
 
     var failureHandler = function (error) {
@@ -84,13 +83,20 @@ com.marchex.audial.Audio.prototype.registerRecordingHandlers = function() {
 
 com.marchex.audial.Audio.prototype.startRecording = function() {
     console.log('Audio::startRecording');
+
     this.microphone.connect(this.gainNode);
-    //this.microphone.connect(this.context.destination);
+    this.microphone.connect(this.scriptNode);
+    this.scriptNode.connect(this.context.destination);
+
     return this;
 };
 
 com.marchex.audial.Audio.prototype.stopRecording = function() {
     console.log('Audio::stopRecording');
-    this.microphone.disconnect();
+
+    this.microphone.disconnect(this.gainNode);
+    this.microphone.disconnect(this.scriptNode);
+    this.scriptNode.disconnect(this.context.destination);
+
     return this;
 };
