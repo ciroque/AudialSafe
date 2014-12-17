@@ -9,6 +9,7 @@ com.marchex.audial.ThresholdMonitor = function(eventManager, logger) {
     this.logger = logger;
     this.settings = null;
     this.primaryThresholdHistory = { count: 0, timestamp: 0, isset: false };
+    this.secondaryThresholdHistory = { timestamp: 0, isset: false };
     this.secondaryThresholdTimeoutSeconds = 3;
     return this;
 };
@@ -97,10 +98,12 @@ com.marchex.audial.ThresholdMonitor.prototype.processPrimaryThreshold = function
 
 com.marchex.audial.ThresholdMonitor.prototype.processSecondaryThreshold = function(sample) {
     if(sample.rms >= this.settings.secondaryThreshold) {
+        this.secondaryThresholdHistory.isset = true;
+        this.secondaryThresholdHistory.timestamp = sample.timestamp;
         this.eventManager.dispatchEvent(Strings.Events.SecondaryThresholdExceeded, sample);
     } else {
         var now = new Date().getMilliseconds();
-        var delta = sample.timestamp + (this.secondaryThresholdTimeoutSeconds * 1000);
+        var delta = this.secondaryThresholdHistory.timestamp + (this.secondaryThresholdTimeoutSeconds * 1000);
         if(now > delta) {
             this.eventManager.dispatchEvent(Strings.Events.SecondaryThresholdReset, sample);
         }
