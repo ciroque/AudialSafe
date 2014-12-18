@@ -28,31 +28,31 @@ com.marchex.audial.UiWarningListener.prototype.registerHandlers = function() {
 
     var self = this;
 
-    this.eventManager.registerHandler(Strings.Events.PrimaryThresholdExceeded, function(args) {
+    this.eventManager.registerHandler(Strings.Events.PrimaryThresholdExceeded, function() {
         self.primarySet = true;
         self.el.text(self.tooLoudText);
     });
 
-    this.eventManager.registerHandler(Strings.Events.PrimaryThresholdReset, function(args) {
+    this.eventManager.registerHandler(Strings.Events.PrimaryThresholdReset, function() {
         self.primarySet = false;
         self.el.text('');
     });
 
-    this.eventManager.registerHandler(Strings.Events.PrimaryThresholdExExceeded, function(args) {
+    this.eventManager.registerHandler(Strings.Events.PrimaryThresholdExExceeded, function() {
         self.primarySet = true;
         self.el.text(self.tooLoudTooLongText);
     });
 
-    this.eventManager.registerHandler(Strings.Events.PrimaryThresholdExReset, function(args) {
+    this.eventManager.registerHandler(Strings.Events.PrimaryThresholdExReset, function() {
         self.primarySet = false;
         self.el.text('');
     });
 
-    this.eventManager.registerHandler(Strings.Events.SecondaryThresholdExceeded, function(args) {
+    this.eventManager.registerHandler(Strings.Events.SecondaryThresholdExceeded, function() {
         self.el.text(self.wayTooLoudText);
     });
 
-    this.eventManager.registerHandler(Strings.Events.SecondaryThresholdReset, function(args) {
+    this.eventManager.registerHandler(Strings.Events.SecondaryThresholdReset, function() {
         if(self.primarySet) {
             self.el.text(self.tooLoudText);
         } else {
@@ -60,7 +60,7 @@ com.marchex.audial.UiWarningListener.prototype.registerHandlers = function() {
         }
     });
 
-    this.eventManager.registerHandler(Strings.Events.StopRecordingButtonClicked, function(args) {
+    this.eventManager.registerHandler(Strings.Events.StopRecordingButtonClicked, function() {
         self.el.text('');
     });
 
