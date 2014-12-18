@@ -6,6 +6,8 @@ com.marchex.audial = com.marchex.audial || {};
 
 com.marchex.audial.UiWarningListener = function(eventManager, logger) {
     this.tooLoudText = 'You Are Being Too Loud.';
+    this.wayTooLoudText = 'WHOA!!! WAY too loud!!!';
+    this.tooLoudTooLongText = 'TOO LOUD FOR TOO LONG!!!';
     this.eventManager = eventManager;
     this.logger = logger;
     this.el = $('#warningIndicator');
@@ -36,8 +38,18 @@ com.marchex.audial.UiWarningListener.prototype.registerHandlers = function() {
         self.el.text('');
     });
 
+    this.eventManager.registerHandler(Strings.Events.PrimaryThresholdExExceeded, function(args) {
+        self.primarySet = true;
+        self.el.text(self.tooLoudTooLongText);
+    });
+
+    this.eventManager.registerHandler(Strings.Events.PrimaryThresholdExReset, function(args) {
+        self.primarySet = false;
+        self.el.text('');
+    });
+
     this.eventManager.registerHandler(Strings.Events.SecondaryThresholdExceeded, function(args) {
-        self.el.text('WHOA!!! WAY too loud!!!');
+        self.el.text(self.wayTooLoudText);
     });
 
     this.eventManager.registerHandler(Strings.Events.SecondaryThresholdReset, function(args) {

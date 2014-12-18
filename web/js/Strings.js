@@ -4,6 +4,8 @@ var Strings = {
     Events: {
         PrimaryThresholdExceeded    : 'primary-threshold-exceeded',
         PrimaryThresholdReset       : 'primary-threshold-reset',
+        PrimaryThresholdExExceeded  : 'primary-threshold-ex-exceeded',
+        PrimaryThresholdExReset     : 'primary-threshold-ex-reset',
         SecondaryThresholdExceeded  : 'secondary-threshold-exceeded',
         SecondaryThresholdReset     : 'secondary-threshold-reset',
         SettingChanged              : 'setting-changed',

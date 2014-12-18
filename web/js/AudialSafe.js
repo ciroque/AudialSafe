@@ -6,7 +6,7 @@ com.marchex.audial = com.marchex.audial || {};
 
 com.marchex.audial.AudialSafe = function() {
 
-    var loggerOptions = { enabled: false };      // change to false to disable logging...
+    var loggerOptions = { enabled: true };      // change to false to disable logging...
 
     this.logger = new com.marchex.audial.Logger(loggerOptions);
     this.eventManager = new com.marchex.audial.EventManager(this.logger);

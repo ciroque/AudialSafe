@@ -8,7 +8,7 @@ com.marchex.audial.ThresholdMonitor = function(eventManager, logger) {
     this.eventManager = eventManager;
     this.logger = logger;
     this.settings = null;
-    this.primaryThresholdHistory = { count: 0, timestamp: 0, isset: false };
+    this.primaryThresholdHistory = { timestamp: 0, first: { count: 0, isset: false }, second: { count: 0, isset: false } };
     this.secondaryThresholdHistory = { timestamp: 0, isset: false };
     this.secondaryThresholdTimeoutSeconds = 5;
     return this;
@@ -80,21 +80,34 @@ com.marchex.audial.ThresholdMonitor.prototype.processPrimaryThreshold = function
 
     this.primaryThresholdHistory.timestamp = sample.timestamp;
     if(sample.rms >= this.settings.primaryThreshold) {
-        this.primaryThresholdHistory.count += 1;
+        this.primaryThresholdHistory.first.count += 1;
+        this.primaryThresholdHistory.second.count += 1;
 
     } else {
-        if(this.primaryThresholdHistory.count > 0) {
-            this.primaryThresholdHistory.count -= 1;
+        if(this.primaryThresholdHistory.first.count > 0) {
+            this.primaryThresholdHistory.first.count -= 1;
+        }
+        if(this.primaryThresholdHistory.second.count > 0) {
+            this.primaryThresholdHistory.second.count -= 1;
         }
     }
 
-    if(this.primaryThresholdHistory.count >= this.settings.primaryThreshold) {
-        this.primaryThresholdHistory.isset = true;
+    if(this.primaryThresholdHistory.first.count >= this.settings.primaryThreshold) {
+        this.primaryThresholdHistory.first.isset = true;
         this.eventManager.dispatchEvent(Strings.Events.PrimaryThresholdExceeded, this.primaryThresholdHistory );
 
-    } else if(this.primaryThresholdHistory.count == 0 && this.primaryThresholdHistory.isset) {
-        this.primaryThresholdHistory.isset = false;
+    } else if(this.primaryThresholdHistory.first.count == 0 && this.primaryThresholdHistory.first.isset) {
+        this.primaryThresholdHistory.first.isset = false;
         this.eventManager.dispatchEvent(Strings.Events.PrimaryThresholdReset, this.primaryThresholdHistory );
+    }
+
+    if(this.primaryThresholdHistory.second.count >= this.settings.primaryThreshold) {
+        this.primaryThresholdHistory.second.isset = true;
+        this.eventManager.dispatchEvent(Strings.Events.PrimaryThresholdExExceeded, this.primaryThresholdHistory );
+
+    } else if(this.primaryThresholdHistory.second.count == 0 && this.primaryThresholdHistory.second.isset) {
+        this.primaryThresholdHistory.second.isset = false;
+        this.eventManager.dispatchEvent(Strings.Events.PrimaryThresholdExReset, this.primaryThresholdHistory );
     }
 
     return this;
