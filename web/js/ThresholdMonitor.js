@@ -40,6 +40,13 @@ com.marchex.audial.ThresholdMonitor.prototype.registerHandlers = function() {
         self.updateSettings(args);
     });
 
+    this.eventManager.registerHandler(Strings.Events.AppReset, function() {
+        self.primaryThresholdHistory = { timestamp: 0, first: { count: 0, isset: false }, second: { count: 0, isset: false } };
+        self.secondaryThresholdHistory = { timestamp: 0, isset: false };
+        self.eventManager.dispatchEvent(Strings.Events.PrimaryThresholdReset, self.primaryThresholdHistory );
+        self.eventManager.dispatchEvent(Strings.Events.SecondaryThresholdReset, {});
+    });
+
     return this;
 };
 
@@ -68,8 +75,8 @@ com.marchex.audial.ThresholdMonitor.prototype.handleVolumeSample = function(samp
     if(sample.timestamp >= delta) {
         this.processPrimaryThreshold(sample);
     }
-    this.processSecondaryThreshold(sample);
 
+    this.processSecondaryThreshold(sample);
     this.processSecondaryThreshold(sample);
 
     return this;

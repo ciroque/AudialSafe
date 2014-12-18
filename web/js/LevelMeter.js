@@ -69,6 +69,15 @@ com.marchex.audial.LevelMeter.prototype.registerHandlers = function() {
         self.setValue(0);
     });
 
+    this.eventManager.registerHandler(Strings.Events.AppReset, function() {
+        self.meanRms = 0;
+        self.peakRms = 0;
+        self.rmsCount = 0;
+        self.setValue(0);
+        self.meanRmsDisplay.text(0);
+        self.peakRmsDisplay.text(0);
+    });
+
     return this;
 };
 

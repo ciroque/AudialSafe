@@ -9,6 +9,7 @@ com.marchex.audial.MasterControls = function(eventManager, logger) {
     this.logger = logger;
     this.startListeningButton = $('#startListening');
     this.stopListeningButton = $('#stopListening');
+    this.resetAppButton = $('#resetApp');
     this.statusImage = $('#recordingStatus');
     return this;
 };
@@ -20,6 +21,7 @@ com.marchex.audial.MasterControls.prototype.init = function() {
     this.startListeningButton.click(function() {
         self.startListeningButton.prop('disabled', true);
         self.stopListeningButton.prop('disabled', false);
+        self.resetAppButton.prop('disabled', true);
         self.statusImage.attr('src', 'img/recording-hot.svg');
         self.eventManager.dispatchEvent(Strings.Events.StartRecordingButtonClicked, {});
     });
@@ -27,8 +29,13 @@ com.marchex.audial.MasterControls.prototype.init = function() {
     this.stopListeningButton.click(function() {
         self.startListeningButton.prop('disabled', false);
         self.stopListeningButton.prop('disabled', true);
+        self.resetAppButton.prop('disabled', false);
         self.statusImage.attr('src', 'img/recording-cold.svg');
         self.eventManager.dispatchEvent(Strings.Events.StopRecordingButtonClicked, {});
+    });
+
+    this.resetAppButton.click(function() {
+        self.eventManager.dispatchEvent(Strings.Events.AppReset, {});
     });
 
     return this;

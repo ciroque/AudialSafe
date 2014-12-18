@@ -2,6 +2,7 @@
 
 var Strings = {
     Events: {
+        AppReset                    : 'app-reset',
         PrimaryThresholdExceeded    : 'primary-threshold-exceeded',
         PrimaryThresholdReset       : 'primary-threshold-reset',
         PrimaryThresholdExExceeded  : 'primary-threshold-ex-exceeded',
