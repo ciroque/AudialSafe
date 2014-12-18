@@ -17,7 +17,7 @@ com.marchex.audial.AudialSafe = function() {
     this.audio = new com.marchex.audial.Audio(this.eventManager, this.logger);
     this.thresholdListener = new com.marchex.audial.ThresholdMonitor(this.eventManager, this.logger);
     this.uiWarningListener = new com.marchex.audial.UiWarningListener(this.eventManager, this.logger);
-    this.dlpSwitchListener = new com.marchex.audial.DlpPowerSwitchListener(this.eventManager, this.logger);
+    this.dlpSwitchListener = new com.marchex.audial.DliPowerSwitchListener(this.eventManager, this.logger);
 
     return this;
 };
