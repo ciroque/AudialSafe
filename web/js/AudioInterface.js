@@ -33,14 +33,6 @@ com.marchex.audial.Audio.prototype.init = function () {
         self.scriptNode.onaudioprocess = function(audioProcessEvent) {
             self.logger.write('scriptNode::onaudioprocess ' + audioProcessEvent.target);
 
-            //var props = [];
-            //for(var prop in audioProcessEvent) {
-            //    if(audioProcessEvent.hasOwnProperty(prop)) {
-            //        props.push(prop + ' => ' + audioProcessEvent[prop]);
-            //    }
-            //}
-            //console.log('>>>>>>>>>>> audioProcessEvent' + props);
-
             var buffer = audioProcessEvent.inputBuffer.getChannelData(0);
             var length = buffer.length;
             var sum = 0;

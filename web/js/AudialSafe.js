@@ -5,7 +5,10 @@ com.marchex = com.marchex || {};
 com.marchex.audial = com.marchex.audial || {};
 
 com.marchex.audial.AudialSafe = function() {
-    this.logger = new com.marchex.audial.Logger();
+
+    var loggerOptions = { enabled: true };      // change to false to disable logging...
+
+    this.logger = new com.marchex.audial.Logger(loggerOptions);
     this.eventManager = new com.marchex.audial.EventManager(this.logger);
     this.storage = new com.marchex.audial.Storage(this.logger);
     this.settingSliders = new com.marchex.audial.SettingSliders(this.eventManager, this.logger, this.storage);

@@ -14,6 +14,7 @@ com.marchex.audial.MasterControls = function(eventManager, logger) {
 };
 
 com.marchex.audial.MasterControls.prototype.init = function() {
+    this.logger.write('MasterControls::init');
 
     var self = this;
     this.startListeningButton.click(function() {

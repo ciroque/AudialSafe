@@ -33,10 +33,12 @@ com.marchex.audial.SettingSlider.prototype.init = function() {
 };
 
 com.marchex.audial.SettingSlider.prototype.getKey = function() {
+    this.logger.write('SettingSlider::getKey');
     return this.key;
 };
 
 com.marchex.audial.SettingSlider.prototype.setInitialValue = function() {
+    this.logger.write('SettingSlider::setInitialValue');
     var value = this.retrieveValue() || 200;
     this.input.val(value);
     this.valueDisplay.text(this.input.val());
@@ -44,11 +46,13 @@ com.marchex.audial.SettingSlider.prototype.setInitialValue = function() {
 };
 
 com.marchex.audial.SettingSlider.prototype.storeValue = function() {
+    this.logger.write('SettingSlider::storeValue');
     this.storage.store(Strings.LocalStoreKeys.SettingKey + this.key, this.input.val());
     return this;
 };
 
 com.marchex.audial.SettingSlider.prototype.retrieveValue = function() {
+    this.logger.write('SettingSliderControls::retrieveValue');
     return this.storage.retrieve(Strings.LocalStoreKeys.SettingKey + this.key);
 };
 

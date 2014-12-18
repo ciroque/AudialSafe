@@ -11,6 +11,7 @@ com.marchex.audial.EventManager = function(logger) {
 };
 
 com.marchex.audial.EventManager.prototype.registerHandler = function (name, handler) {
+    this.logger.write('EventManager::registerHandler');
     if (!this.handlerMap[name]) {
         this.handlerMap[name] = [];
     }
@@ -20,11 +21,12 @@ com.marchex.audial.EventManager.prototype.registerHandler = function (name, hand
 };
 
 com.marchex.audial.EventManager.prototype.dispatchEvent = function (name, args) {
-    var handler = this.handlerMap[name];
     this.logger.write('EventManager::dispatchEvent(' + name + ', ' + JSON.stringify(args) + ')');
+    var handler = this.handlerMap[name];
     if (handler) {
         for (var index = 0; index < handler.length; index++) {
             handler[index](args);
         }
     }
+    return this;
 };
