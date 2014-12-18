@@ -4,7 +4,7 @@ var com = com || {};
 com.marchex = com.marchex || {};
 com.marchex.audial = com.marchex.audial || {};
 
-com.marchex.audial.DlpPowerSwitchListener = function(eventManager, logger, opts) {
+com.marchex.audial.DliPowerSwitchListener = function(eventManager, logger, opts) {
     this.opts = opts || { switchAddress: '192.168.1.1', firstLightOutlet: 1, secondLightOutlet: 2 };
     this.eventManager = eventManager;
     this.logger = logger;
@@ -12,16 +12,16 @@ com.marchex.audial.DlpPowerSwitchListener = function(eventManager, logger, opts)
     return this;
 };
 
-com.marchex.audial.DlpPowerSwitchListener.prototype.init = function() {
-    this.logger.write('DlpPowerSwitchListener::init');
+com.marchex.audial.DliPowerSwitchListener.prototype.init = function() {
+    this.logger.write('DliPowerSwitchListener::init');
 
     this.registerHandlers();
 
     return this;
 };
 
-com.marchex.audial.DlpPowerSwitchListener.prototype.registerHandlers = function() {
-    this.logger.write('DlpPowerSwitchListener::registerHandlers');
+com.marchex.audial.DliPowerSwitchListener.prototype.registerHandlers = function() {
+    this.logger.write('DliPowerSwitchListener::registerHandlers');
 
     var self = this;
 
@@ -61,8 +61,8 @@ com.marchex.audial.DlpPowerSwitchListener.prototype.registerHandlers = function(
     return this;
 };
 
-com.marchex.audial.DlpPowerSwitchListener.prototype.sendControlMessageToSwitch = function(outlet, state) {
-    this.logger.write('DlpPowerSwitchListener::sendControlMessageToSwitch');
+com.marchex.audial.DliPowerSwitchListener.prototype.sendControlMessageToSwitch = function(outlet, state) {
+    this.logger.write('DliPowerSwitchListener::sendControlMessageToSwitch');
     // TODO: Make Ajax call...
 
     console.log('Yep, I sent the message to the power switch: outlet(' + outlet + '), state(' + state + ')');
