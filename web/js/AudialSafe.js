@@ -12,6 +12,7 @@ com.marchex.audial.AudialSafe = function() {
     this.eventManager = new com.marchex.audial.EventManager(this.logger);
     this.storage = new com.marchex.audial.Storage(this.logger);
     this.settingSliders = new com.marchex.audial.SettingSliders(this.eventManager, this.logger, this.storage);
+    this.advancedSettings = new com.marchex.audial.AdvancedSettings(this.eventManager, this.logger, this.storage);
     this.masterControls = new com.marchex.audial.MasterControls(this.eventManager, this.logger);
     this.levelMeter = new com.marchex.audial.LevelMeter(this.eventManager, this.logger);
     this.audio = new com.marchex.audial.Audio(this.eventManager, this.logger);
@@ -32,6 +33,7 @@ com.marchex.audial.AudialSafe.prototype.init = function() {
     this.thresholdListener.init();
     this.uiWarningListener.init();
     this.dlpSwitchListener.init();
+    this.advancedSettings.init();
 
     return this;
 };

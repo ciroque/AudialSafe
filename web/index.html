@@ -16,6 +16,8 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+    <link rel="stylesheet" type="text/css" href="assets/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/jquery-ui/jquery-ui.structure.min.css">
     <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/normalize.css">
@@ -23,7 +25,7 @@
     <script src="assets/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
-<!--[if lt IE 7]>
+<!--[if lt IE 10]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
@@ -85,7 +87,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <span>Mean RMS:</span>
+                        <span title="Cumulative Moving Average">Average RMS:</span>
                         <span id="meanRms">0</span>
                         <span>&nbsp;&nbsp;&nbsp;</span>
                         <span>Peak RMS:</span>
@@ -96,81 +98,96 @@
         </div>
         <hr/>
         <div class="sectional-padding">
-            <div class="row">
-                <div class="col-lg-12"><h2>Settings</h2></div>
-            </div>
+            <div id="standardSettings">
+                <h2 class="page-header">Settings</h2>
 
-            <!--
-                Sample Rate: The duration in milliseconds between observations of the SPL.
-            -->
-            <div class="row setting-slider">
-                <div class="col-lg-3"><label for="sampleRate">Sample Rate (seconds)</label></div>
-                <div class="col-lg-8">
-                    <input type="range" id="sampleRate" name="sampleRate" placeholder="Sample Rate" min="1" max="30"
-                           value="0"/>
-                </div>
-                <div class="col-lg-1">
-                    <span class="val-disp" id="sampleRateValue">0</span>
+                <div>
+                    <!--
+                        Sample Rate: The duration in milliseconds between observations of the SPL.
+                    -->
+                    <div class="row setting-slider">
+                        <div class="col-lg-3"><label for="sampleRate">Sample Rate (seconds)</label></div>
+                        <div class="col-lg-8">
+                            <input type="range" id="sampleRate" name="sampleRate" placeholder="Sample Rate" min="1"
+                                   max="30"
+                                   value="0"/>
+                        </div>
+                        <div class="col-lg-1">
+                            <span class="val-disp" id="sampleRateValue">0</span>
+                        </div>
+                    </div>
+
+                    <!--
+                        Primary Threshold: Lower-end SPL level that when observed for Primary Threshold Observation Count triggers the primary indicator.
+                        Will also trigger the secondary indicator if observed Secondary Threshold Observation Count times without a reset ocurring.
+                    -->
+                    <div class="row setting-slider">
+                        <div class="col-lg-3"><label for="primaryThreshold">Primary Threshold</label></div>
+                        <div class="col-lg-8">
+                            <input type="range" id="primaryThreshold" name="primaryThreshold"
+                                   placeholder="Primary Threshold"
+                                   min="0" max="700" value="0"/>
+                        </div>
+                        <div class="col-lg-1">
+                            <span class="val-disp" id="primaryThresholdValue">0</span>
+                        </div>
+                    </div>
+
+                    <!--
+                        Primary Threshold Observation Count: Number of observations of the Primary Threshold that will trigger the primary indicator.
+                    -->
+                    <div class="row setting-slider">
+                        <div class="col-lg-3"><label for="primaryThresholdObservationCount">&nbsp;&nbsp;&nbsp;&nbsp;Primary
+                            Observation Count</label></div>
+                        <div class="col-lg-8">
+                            <input type="range" id="primaryThresholdObservationCount"
+                                   name="primaryThresholdObservationCount"
+                                   placeholder="Threshold Primary Observation Count" min="1" max="1000" value="0"/>
+                        </div>
+                        <div class="col-lg-1">
+                            <span class="val-disp" id="primaryThresholdObservationCountValue">0</span>
+                        </div>
+                    </div>
+
+                    <!--
+                        Secondary Threshold Observation Count: Number of observations of the Primary Threshold that will trigger the primary indicator.
+                    -->
+                    <div class="row setting-slider">
+                        <div class="col-lg-3"><label for="secondaryThresholdObservationCount">&nbsp;&nbsp;&nbsp;&nbsp;Secondary
+                            Observation Count</label></div>
+                        <div class="col-lg-8">
+                            <input type="range" id="secondaryThresholdObservationCount"
+                                   name="secondaryThresholdObservationCount"
+                                   placeholder="Threshold Secondary Observation Count"
+                                   min="1" max="1000" value="0"/>
+                        </div>
+                        <div class="col-lg-1">
+                            <span class="val-disp" id="secondaryThresholdObservationCountValue">0</span>
+                        </div>
+                    </div>
+
+                    <!--
+                        Secondary Threshold: Automatically triggers the secondary indicator regardless of timing settings.
+                    -->
+                    <div class="row setting-slider">
+                        <div class="col-lg-3"><label for="secondaryThreshold">Secondary Threshold</label></div>
+                        <div class="col-lg-8">
+                            <input type="range" id="secondaryThreshold" name="secondaryThreshold"
+                                   placeholder="Secondary Threshold" min="1" max="700" value="0"/>
+                        </div>
+                        <div class="col-lg-1">
+                            <span class="val-disp" id="secondaryThresholdValue">0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="sectional-padding">
+            <div id="advancedSettings">
+                <h2>Advanced Settings</h2>
 
-            <!--
-                Primary Threshold: Lower-end SPL level that when observed for Primary Threshold Observation Count triggers the primary indicator.
-                Will also trigger the secondary indicator if observed Secondary Threshold Observation Count times without a reset ocurring.
-            -->
-            <div class="row setting-slider">
-                <div class="col-lg-3"><label for="primaryThreshold">Primary Threshold</label></div>
-                <div class="col-lg-8">
-                    <input type="range" id="primaryThreshold" name="primaryThreshold" placeholder="Primary Threshold"
-                           min="0" max="700" value="0"/>
-                </div>
-                <div class="col-lg-1">
-                    <span class="val-disp" id="primaryThresholdValue">0</span>
-                </div>
-            </div>
-
-            <!--
-                Primary Threshold Observation Count: Number of observations of the Primary Threshold that will trigger the primary indicator.
-            -->
-            <div class="row setting-slider">
-                <div class="col-lg-3"><label for="primaryThresholdObservationCount">&nbsp;&nbsp;&nbsp;&nbsp;Primary
-                    Observation Count</label></div>
-                <div class="col-lg-8">
-                    <input type="range" id="primaryThresholdObservationCount" name="primaryThresholdObservationCount"
-                           placeholder="Threshold Primary Observation Count" min="1" max="1000" value="0"/>
-                </div>
-                <div class="col-lg-1">
-                    <span class="val-disp" id="primaryThresholdObservationCountValue">0</span>
-                </div>
-            </div>
-
-            <!--
-                Secondary Threshold Observation Count: Number of observations of the Primary Threshold that will trigger the primary indicator.
-            -->
-            <div class="row setting-slider">
-                <div class="col-lg-3"><label for="secondaryThresholdObservationCount">&nbsp;&nbsp;&nbsp;&nbsp;Secondary
-                    Observation Count</label></div>
-                <div class="col-lg-8">
-                    <input type="range" id="secondaryThresholdObservationCount"
-                           name="secondaryThresholdObservationCount" placeholder="Threshold Secondary Observation Count"
-                           min="1" max="1000" value="0"/>
-                </div>
-                <div class="col-lg-1">
-                    <span class="val-disp" id="secondaryThresholdObservationCountValue">0</span>
-                </div>
-            </div>
-
-            <!--
-                Secondary Threshold: Automatically triggers the secondary indicator regardless of timing settings.
-            -->
-            <div class="row setting-slider">
-                <div class="col-lg-3"><label for="secondaryThreshold">Secondary Threshold</label></div>
-                <div class="col-lg-8">
-                    <input type="range" id="secondaryThreshold" name="secondaryThreshold"
-                           placeholder="Secondary Threshold" min="1" max="700" value="0"/>
-                </div>
-                <div class="col-lg-1">
-                    <span class="val-disp" id="secondaryThresholdValue">0</span>
+                <div class="row">
+                    <div class="col-lg-12">Some Stuffs Goes Heres</div>
                 </div>
             </div>
         </div>
@@ -181,7 +198,8 @@
     </footer>
 </div>
 
-<script src="assets/jquery-1.10.2.min.js"></script>
+<script src="assets/jquery/jquery-1.11.2.min.js"></script>
+<script src="assets/jquery-ui/jquery-ui.min.js"></script>
 <script src="assets/plugins.js"></script>
 <script src="assets/gauge.min.js"></script>
 <script src="js/Logger.js" type="application/javascript"></script>
@@ -191,6 +209,7 @@
 <script src="js/AudioInterface.js" type="application/javascript"></script>
 <script src="js/LevelMeter.js" type="application/javascript"></script>
 <script src="js/MasterControls.js" type="application/javascript"></script>
+<script src="js/AdvancedSettings.js" type="application/javascript"></script>
 <script src="js/SettingSliders.js" type="application/javascript"></script>
 <script src="js/SettingSlider.js" type="application/javascript"></script>
 <script src="js/ThresholdMonitor.js" type="application/javascript"></script>

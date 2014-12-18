@@ -9,6 +9,7 @@ com.marchex.audial.SettingSliders = function(eventManager, logger, storage) {
     this.logger = logger;
     this.storage = storage;
     this.sliders = [];
+    this.accordion = $('#standardSettings');
     return this;
 };
 
