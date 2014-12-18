@@ -75,11 +75,11 @@ label {
 }
 
 main {
-    background-color: azure;
+    background-color: white;
 }
 
 .viewport {
-    background-color: wheat;
+    background-color: lightskyblue;
     border: inset 2px slategray;
     border-radius: 10px;
     margin-top: 12px;
