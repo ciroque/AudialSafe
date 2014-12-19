@@ -29,6 +29,7 @@ com.marchex.audial.ThresholdMonitor.prototype.registerHandlers = function() {
     var self = this;
 
     this.eventManager.registerHandler(Strings.Events.SettingsDump, function(args) {
+        self.logger.write('SETTINGS>>> ' + JSON.stringify(args));
         self.handleSettingsDump(args);
     });
 
@@ -99,7 +100,7 @@ com.marchex.audial.ThresholdMonitor.prototype.processPrimaryThreshold = function
         }
     }
 
-    if(this.primaryThresholdHistory.first.count >= this.settings.primaryThreshold) {
+    if(this.primaryThresholdHistory.first.count >= this.settings.primaryThresholdObservationCount) {
         this.primaryThresholdHistory.first.isset = true;
         this.eventManager.dispatchEvent(Strings.Events.PrimaryThresholdExceeded, this.primaryThresholdHistory );
 
@@ -108,7 +109,7 @@ com.marchex.audial.ThresholdMonitor.prototype.processPrimaryThreshold = function
         this.eventManager.dispatchEvent(Strings.Events.PrimaryThresholdReset, this.primaryThresholdHistory );
     }
 
-    if(this.primaryThresholdHistory.second.count >= this.settings.primaryThreshold) {
+    if(this.primaryThresholdHistory.second.count >= this.settings.secondaryThresholdObservationCount) {
         this.primaryThresholdHistory.second.isset = true;
         this.eventManager.dispatchEvent(Strings.Events.PrimaryThresholdExExceeded, this.primaryThresholdHistory );
 
