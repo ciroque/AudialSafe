@@ -8,6 +8,7 @@ com.marchex.audial.Audio = function(eventManager, logger) {
     this.eventManager = eventManager;
     this.logger = logger;
     this.context = null;
+    this.sqrt2 = Math.sqrt(2);
     return this;
 };
 
@@ -43,7 +44,7 @@ com.marchex.audial.Audio.prototype.init = function () {
 
             var rms = Math.sqrt(sum / length) * 1000;
 
-            self.eventManager.dispatchEvent(Strings.Events.VolumeSample, { rms: rms, timestamp: audioProcessEvent.timeStamp });
+            self.eventManager.dispatchEvent(Strings.Events.VolumeSample, { rms: rms, timestamp: audioProcessEvent.timeStamp, swp: rms * self.sqrt2 });
         };
     };
 
