@@ -1,6 +1,6 @@
 "use strict";
 
-var com = com || {};
+var org = org || {};
 org.ciroque = org.ciroque || {};
 org.ciroque.audial = org.ciroque.audial || {};
 
