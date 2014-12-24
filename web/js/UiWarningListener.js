@@ -1,10 +1,10 @@
 "use strict";
 
 var com = com || {};
-com.marchex = com.marchex || {};
-com.marchex.audial = com.marchex.audial || {};
+org.ciroque = org.ciroque || {};
+org.ciroque.audial = org.ciroque.audial || {};
 
-com.marchex.audial.UiWarningListener = function(eventManager, logger) {
+org.ciroque.audial.UiWarningListener = function(eventManager, logger) {
     this.tooLoudText = 'You Are Being Too Loud.';
     this.wayTooLoudText = 'WHOA!!! WAY too loud!!!';
     this.tooLoudTooLongText = 'TOO LOUD FOR TOO LONG!!!';
@@ -15,7 +15,7 @@ com.marchex.audial.UiWarningListener = function(eventManager, logger) {
     return this;
 };
 
-com.marchex.audial.UiWarningListener.prototype.init = function() {
+org.ciroque.audial.UiWarningListener.prototype.init = function() {
     this.logger.write('UiWarningListener::init');
 
     this.registerHandlers();
@@ -23,7 +23,7 @@ com.marchex.audial.UiWarningListener.prototype.init = function() {
     return this;
 };
 
-com.marchex.audial.UiWarningListener.prototype.registerHandlers = function() {
+org.ciroque.audial.UiWarningListener.prototype.registerHandlers = function() {
     this.logger.write('UiWarningListener::registerHandlers');
 
     var self = this;

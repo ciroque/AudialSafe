@@ -1,10 +1,10 @@
 "use strict";
 
 var com = com || {};
-com.marchex = com.marchex || {};
-com.marchex.audial = com.marchex.audial || {};
+org.ciroque = org.ciroque || {};
+org.ciroque.audial = org.ciroque.audial || {};
 
-com.marchex.audial.Audio = function(eventManager, logger) {
+org.ciroque.audial.Audio = function(eventManager, logger) {
     this.eventManager = eventManager;
     this.logger = logger;
     this.context = null;
@@ -12,7 +12,7 @@ com.marchex.audial.Audio = function(eventManager, logger) {
     return this;
 };
 
-com.marchex.audial.Audio.prototype.init = function () {
+org.ciroque.audial.Audio.prototype.init = function () {
     this.logger.write('Audio::init');
 
     if (!navigator.getUserMedia) {
@@ -57,7 +57,7 @@ com.marchex.audial.Audio.prototype.init = function () {
     return this;
 };
 
-com.marchex.audial.Audio.prototype.registerHandlers = function() {
+org.ciroque.audial.Audio.prototype.registerHandlers = function() {
     this.logger.write('Audio::registerHandlers');
 
     var self = this;
@@ -85,7 +85,7 @@ com.marchex.audial.Audio.prototype.registerHandlers = function() {
     return this;
 };
 
-com.marchex.audial.Audio.prototype.startRecording = function() {
+org.ciroque.audial.Audio.prototype.startRecording = function() {
     this.logger.write('Audio::startRecording');
 
     this.microphone.connect(this.scriptNode);
@@ -94,7 +94,7 @@ com.marchex.audial.Audio.prototype.startRecording = function() {
     return this;
 };
 
-com.marchex.audial.Audio.prototype.stopRecording = function() {
+org.ciroque.audial.Audio.prototype.stopRecording = function() {
     this.logger.write('Audio::stopRecording');
 
     this.microphone.disconnect(this.scriptNode);

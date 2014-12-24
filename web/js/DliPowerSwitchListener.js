@@ -1,10 +1,10 @@
 "use strict";
 
 var com = com || {};
-com.marchex = com.marchex || {};
-com.marchex.audial = com.marchex.audial || {};
+org.ciroque = org.ciroque || {};
+org.ciroque.audial = org.ciroque.audial || {};
 
-com.marchex.audial.DliPowerSwitchListener = function(eventManager, logger, opts) {
+org.ciroque.audial.DliPowerSwitchListener = function(eventManager, logger, opts) {
     this.OUTLET_ON = 'ON';
     this.OUTLET_OFF = 'OFF';
     this.opts = opts || { switchAddress: '192.168.0.100', firstLightOutlet: 1, secondLightOutlet: 2 };
@@ -14,7 +14,7 @@ com.marchex.audial.DliPowerSwitchListener = function(eventManager, logger, opts)
     return this;
 };
 
-com.marchex.audial.DliPowerSwitchListener.prototype.init = function() {
+org.ciroque.audial.DliPowerSwitchListener.prototype.init = function() {
     this.logger.write('DliPowerSwitchListener::init');
 
     this.registerHandlers();
@@ -22,7 +22,7 @@ com.marchex.audial.DliPowerSwitchListener.prototype.init = function() {
     return this;
 };
 
-com.marchex.audial.DliPowerSwitchListener.prototype.registerHandlers = function() {
+org.ciroque.audial.DliPowerSwitchListener.prototype.registerHandlers = function() {
     this.logger.write('DliPowerSwitchListener::registerHandlers');
 
     var self = this;
@@ -71,7 +71,7 @@ com.marchex.audial.DliPowerSwitchListener.prototype.registerHandlers = function(
     return this;
 };
 
-com.marchex.audial.DliPowerSwitchListener.prototype.sendControlMessageToSwitch = function(outlet, state) {
+org.ciroque.audial.DliPowerSwitchListener.prototype.sendControlMessageToSwitch = function(outlet, state) {
     this.logger.write('DLI> DliPowerSwitchListener::sendControlMessageToSwitch ==> ' + state );
 
 

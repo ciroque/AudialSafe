@@ -1,15 +1,15 @@
 "use strict";
 
 var com = com || {};
-com.marchex = com.marchex || {};
-com.marchex.audial = com.marchex.audial || {};
+org.ciroque = org.ciroque || {};
+org.ciroque.audial = org.ciroque.audial || {};
 
-com.marchex.audial.Logger = function(opts) {
+org.ciroque.audial.Logger = function(opts) {
     this.opts = opts || { enabled: true };
     return this;
 };
 
-com.marchex.audial.Logger.prototype.write = function(msg) {
+org.ciroque.audial.Logger.prototype.write = function(msg) {
     var message = new Date().toISOString() + '\t' + msg;
     if(this.opts.enabled) {
         console.log(message);

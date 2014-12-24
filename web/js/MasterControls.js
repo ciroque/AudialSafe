@@ -1,10 +1,10 @@
 "use strict";
 
 var com = com || {};
-com.marchex = com.marchex || {};
-com.marchex.audial = com.marchex.audial || {};
+org.ciroque = org.ciroque || {};
+org.ciroque.audial = org.ciroque.audial || {};
 
-com.marchex.audial.MasterControls = function(eventManager, logger) {
+org.ciroque.audial.MasterControls = function(eventManager, logger) {
     this.eventManager = eventManager;
     this.logger = logger;
     this.startListeningButton = $('#startListening');
@@ -14,7 +14,7 @@ com.marchex.audial.MasterControls = function(eventManager, logger) {
     return this;
 };
 
-com.marchex.audial.MasterControls.prototype.init = function() {
+org.ciroque.audial.MasterControls.prototype.init = function() {
     this.logger.write('MasterControls::init');
 
     var self = this;

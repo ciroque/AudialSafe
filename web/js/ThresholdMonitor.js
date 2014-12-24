@@ -1,10 +1,10 @@
 "use strict";
 
 var com = com || {};
-com.marchex = com.marchex || {};
-com.marchex.audial = com.marchex.audial || {};
+org.ciroque = org.ciroque || {};
+org.ciroque.audial = org.ciroque.audial || {};
 
-com.marchex.audial.ThresholdMonitor = function(eventManager, logger) {
+org.ciroque.audial.ThresholdMonitor = function(eventManager, logger) {
     this.eventManager = eventManager;
     this.logger = logger;
     this.settings = null;
@@ -14,7 +14,7 @@ com.marchex.audial.ThresholdMonitor = function(eventManager, logger) {
     return this;
 };
 
-com.marchex.audial.ThresholdMonitor.prototype.init = function() {
+org.ciroque.audial.ThresholdMonitor.prototype.init = function() {
     this.logger.write('ThresholdMonitor::init');
     this.registerHandlers();
 
@@ -23,7 +23,7 @@ com.marchex.audial.ThresholdMonitor.prototype.init = function() {
     return this;
 };
 
-com.marchex.audial.ThresholdMonitor.prototype.registerHandlers = function() {
+org.ciroque.audial.ThresholdMonitor.prototype.registerHandlers = function() {
     this.logger.write('ThresholdMonitor::registerHandlers');
 
     var self = this;
@@ -51,7 +51,7 @@ com.marchex.audial.ThresholdMonitor.prototype.registerHandlers = function() {
     return this;
 };
 
-com.marchex.audial.ThresholdMonitor.prototype.updateSettings = function(settings) {
+org.ciroque.audial.ThresholdMonitor.prototype.updateSettings = function(settings) {
     this.logger.write('ThresholdMonitor::updateSettings');
 
     var key = settings.setting;
@@ -62,13 +62,13 @@ com.marchex.audial.ThresholdMonitor.prototype.updateSettings = function(settings
     return this;
 };
 
-com.marchex.audial.ThresholdMonitor.prototype.handleSettingsDump = function(args) {
+org.ciroque.audial.ThresholdMonitor.prototype.handleSettingsDump = function(args) {
     this.logger.write('ThresholdMonitor::handleSettingsDump');
     this.settings = args.settings;
     return this;
 };
 
-com.marchex.audial.ThresholdMonitor.prototype.handleVolumeSample = function(sample) {
+org.ciroque.audial.ThresholdMonitor.prototype.handleVolumeSample = function(sample) {
     this.logger.write('ThresholdMonitor::handleVolumeSample');
 
     var delta = (this.primaryThresholdHistory.timestamp + (this.settings.sampleRate * 1000));
@@ -83,7 +83,7 @@ com.marchex.audial.ThresholdMonitor.prototype.handleVolumeSample = function(samp
     return this;
 };
 
-com.marchex.audial.ThresholdMonitor.prototype.processPrimaryThreshold = function(sample) {
+org.ciroque.audial.ThresholdMonitor.prototype.processPrimaryThreshold = function(sample) {
     this.logger.write('ThresholdMonitor::processPrimaryThreshold');
 
     this.primaryThresholdHistory.timestamp = sample.timestamp;
@@ -121,7 +121,7 @@ com.marchex.audial.ThresholdMonitor.prototype.processPrimaryThreshold = function
     return this;
 };
 
-com.marchex.audial.ThresholdMonitor.prototype.processSecondaryThreshold = function(sample) {
+org.ciroque.audial.ThresholdMonitor.prototype.processSecondaryThreshold = function(sample) {
     this.logger.write('ThresholdMonitor::processSecondaryThreshold');
     if(sample.rms >= this.settings.secondaryThreshold) {
         this.secondaryThresholdHistory.isset = true;

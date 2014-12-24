@@ -1,10 +1,10 @@
 "use strict";
 
 var com = com || {};
-com.marchex = com.marchex || {};
-com.marchex.audial = com.marchex.audial || {};
+org.ciroque = org.ciroque || {};
+org.ciroque.audial = org.ciroque.audial || {};
 
-com.marchex.audial.SettingSlider = function(ele, eventManager, logger, storage) {
+org.ciroque.audial.SettingSlider = function(ele, eventManager, logger, storage) {
     this.eventManager = eventManager;
     this.logger = logger;
     this.storage = storage;
@@ -15,7 +15,7 @@ com.marchex.audial.SettingSlider = function(ele, eventManager, logger, storage) 
     return this;
 };
 
-com.marchex.audial.SettingSlider.prototype.init = function() {
+org.ciroque.audial.SettingSlider.prototype.init = function() {
     this.logger.write('SettingSlider::init');
 
     this.setInitialValue();
@@ -32,12 +32,12 @@ com.marchex.audial.SettingSlider.prototype.init = function() {
     return this;
 };
 
-com.marchex.audial.SettingSlider.prototype.getKey = function() {
+org.ciroque.audial.SettingSlider.prototype.getKey = function() {
     this.logger.write('SettingSlider::getKey');
     return this.key;
 };
 
-com.marchex.audial.SettingSlider.prototype.setInitialValue = function() {
+org.ciroque.audial.SettingSlider.prototype.setInitialValue = function() {
     this.logger.write('SettingSlider::setInitialValue');
     var value = this.retrieveValue() || 200;
     this.input.val(value);
@@ -45,13 +45,13 @@ com.marchex.audial.SettingSlider.prototype.setInitialValue = function() {
     return this;
 };
 
-com.marchex.audial.SettingSlider.prototype.storeValue = function() {
+org.ciroque.audial.SettingSlider.prototype.storeValue = function() {
     this.logger.write('SettingSlider::storeValue');
     this.storage.store(Strings.LocalStoreKeys.SettingKey + this.key, this.input.val());
     return this;
 };
 
-com.marchex.audial.SettingSlider.prototype.retrieveValue = function() {
+org.ciroque.audial.SettingSlider.prototype.retrieveValue = function() {
     this.logger.write('SettingSliderControls::retrieveValue');
     return this.storage.retrieve(Strings.LocalStoreKeys.SettingKey + this.key);
 };

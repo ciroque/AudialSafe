@@ -1,10 +1,10 @@
 "use strict";
 
 var com = com || {};
-com.marchex = com.marchex || {};
-com.marchex.audial = com.marchex.audial || {};
+org.ciroque = org.ciroque || {};
+org.ciroque.audial = org.ciroque.audial || {};
 
-com.marchex.audial.AdvancedSettings = function(eventManager, logger, storage) {
+org.ciroque.audial.AdvancedSettings = function(eventManager, logger, storage) {
     this.eventManager = eventManager;
     this.logger = logger;
     this.storage = storage;
@@ -12,7 +12,7 @@ com.marchex.audial.AdvancedSettings = function(eventManager, logger, storage) {
     return this;
 };
 
-com.marchex.audial.AdvancedSettings.prototype.init = function() {
+org.ciroque.audial.AdvancedSettings.prototype.init = function() {
     this.logger.write('AdvancedSettings::init');
 
     return this;

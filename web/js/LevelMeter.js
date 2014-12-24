@@ -1,10 +1,10 @@
 "use strict";
 
 var com = com || {};
-com.marchex = com.marchex || {};
-com.marchex.audial = com.marchex.audial || {};
+org.ciroque = org.ciroque || {};
+org.ciroque.audial = org.ciroque.audial || {};
 
-com.marchex.audial.LevelMeter = function(eventManager, logger, opts) {
+org.ciroque.audial.LevelMeter = function(eventManager, logger, opts) {
     this.eventManager = eventManager;
     this.logger = logger;
     this.ele = document.getElementById('currentLevel');
@@ -35,7 +35,7 @@ com.marchex.audial.LevelMeter = function(eventManager, logger, opts) {
     return this;
 };
 
-com.marchex.audial.LevelMeter.prototype.init = function() {
+org.ciroque.audial.LevelMeter.prototype.init = function() {
     this.logger.write('LevelMeter::init');
 
     this.gauge.maxValue = 700;
@@ -47,7 +47,7 @@ com.marchex.audial.LevelMeter.prototype.init = function() {
     return this;
 };
 
-com.marchex.audial.LevelMeter.prototype.registerHandlers = function() {
+org.ciroque.audial.LevelMeter.prototype.registerHandlers = function() {
     this.logger.write('LevelMeter::registerHandlers');
 
     var self = this;
@@ -81,7 +81,7 @@ com.marchex.audial.LevelMeter.prototype.registerHandlers = function() {
     return this;
 };
 
-com.marchex.audial.LevelMeter.prototype.setValue = function(value) {
+org.ciroque.audial.LevelMeter.prototype.setValue = function(value) {
     this.logger.write('LevelMeter::setValue');
     this.gauge.set(value);
     return this;

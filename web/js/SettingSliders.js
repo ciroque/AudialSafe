@@ -1,10 +1,10 @@
 "use strict";
 
 var com = com || {};
-com.marchex = com.marchex || {};
-com.marchex.audial = com.marchex.audial || {};
+org.ciroque = org.ciroque || {};
+org.ciroque.audial = org.ciroque.audial || {};
 
-com.marchex.audial.SettingSliders = function(eventManager, logger, storage) {
+org.ciroque.audial.SettingSliders = function(eventManager, logger, storage) {
     this.eventManager = eventManager;
     this.logger = logger;
     this.storage = storage;
@@ -13,13 +13,13 @@ com.marchex.audial.SettingSliders = function(eventManager, logger, storage) {
     return this;
 };
 
-com.marchex.audial.SettingSliders.prototype.init = function() {
+org.ciroque.audial.SettingSliders.prototype.init = function() {
     this.logger.write('SettingSliders::init');
     var SLIDER_CLASS_NAME = 'setting-slider';
     var sliderElements = $('.' + SLIDER_CLASS_NAME);
 
     for(var index = 0; index < sliderElements.length; index++) {
-        this.sliders.push(new com.marchex.audial.SettingSlider(sliderElements[index], this.eventManager, this.logger, this.storage).init());
+        this.sliders.push(new org.ciroque.audial.SettingSlider(sliderElements[index], this.eventManager, this.logger, this.storage).init());
     }
 
     this.registerHandlers();
@@ -27,7 +27,7 @@ com.marchex.audial.SettingSliders.prototype.init = function() {
     return this;
 };
 
-com.marchex.audial.SettingSliders.prototype.registerHandlers = function() {
+org.ciroque.audial.SettingSliders.prototype.registerHandlers = function() {
     this.logger.write('SettingSliders::registerHandlers');
 
     var self = this;
@@ -39,7 +39,7 @@ com.marchex.audial.SettingSliders.prototype.registerHandlers = function() {
     return this;
 };
 
-com.marchex.audial.SettingSliders.prototype.getSettings = function() {
+org.ciroque.audial.SettingSliders.prototype.getSettings = function() {
     this.logger.write('SettingSliders::getSettings');
 
     var settings = {};
