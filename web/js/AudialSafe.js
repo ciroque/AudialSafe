@@ -44,10 +44,4 @@ ns.AudialSafe.prototype.init = function() {
 $(window).load(function() {
     var audial = new org.ciroque.audial.AudialSafe();
     audial.init();
-
-    testStuff();
 });
-
-function testStuff() {
-
-}
